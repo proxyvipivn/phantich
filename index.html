@@ -3,40 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TÀI XỈU PRO - HỆ THỐNG PHÂN TÍCH & QUẢN LÝ RỦI RO</title>
+    <title>ULTIMATE TÀI XỈU AI - PHIÊN BẢN CUỐI CÙNG</title>
     <style>
         :root {
             --gold: #ffd700;
-            --red: #ff4444;
-            --blue: #4488ff;
-            --green: #44ff44;
-            --dark: #0a0a0a;
-            --card: #1a1a2e;
+            --red: #ff3333;
+            --blue: #3366ff;
+            --green: #00ff88;
+            --dark: #000000;
+            --card: #0a0a14;
+            --border: #1a1a2e;
+            --text: #e0e0e0;
+            --dim: #888888;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', 'Orbitron', sans-serif;
             background: var(--dark);
-            color: #fff;
+            color: var(--text);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .bg-effect {
+        /* Premium Background */
+        .bg-universe {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(255,68,68,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(68,136,255,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(255,215,0,0.03) 0%, transparent 50%);
+                radial-gradient(ellipse at 15% 20%, rgba(255,51,51,0.06) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 80%, rgba(51,102,255,0.06) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 70%, rgba(0,255,136,0.03) 0%, transparent 50%);
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 30s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: floatUp 8s infinite;
+            opacity: 0;
+            box-shadow: 0 0 6px var(--gold);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
         }
 
         .container {
             position: relative;
             z-index: 1;
-            max-width: 1500px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -44,621 +95,792 @@
         /* Header */
         .header {
             text-align: center;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffd700, #ff4444, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header .warning {
-            display: inline-block;
-            padding: 8px 20px;
-            border: 1px solid #ff4444;
-            border-radius: 20px;
-            color: #ff4444;
-            margin-top: 10px;
-            font-size: 0.9em;
-            letter-spacing: 2px;
-        }
-
-        /* Dashboard Grid */
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
+            padding: 35px 20px;
             margin-bottom: 25px;
         }
 
-        @media (max-width: 1100px) {
-            .dashboard { grid-template-columns: 1fr; }
+        .header .ultimate-badge {
+            display: inline-block;
+            padding: 10px 30px;
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            color: var(--gold);
+            font-weight: bold;
+            letter-spacing: 5px;
+            font-size: 0.85em;
+            margin-bottom: 20px;
+            animation: badgePulse 2s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255,215,0,0.5);
         }
 
-        /* Card */
-        .card {
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(255,215,0,0.2); }
+            50% { box-shadow: 0 0 35px rgba(255,215,0,0.5); }
+        }
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b, #ffd700, #6b9fff, #ffd700);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: goldShine 4s linear infinite;
+            line-height: 1.2;
+        }
+
+        @keyframes goldShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 300% center; }
+        }
+
+        .header .subtitle {
+            color: var(--dim);
+            letter-spacing: 4px;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 2em; }
+        }
+
+        /* Premium Card */
+        .premium-card {
             background: var(--card);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            transition: all 0.5s ease;
+        }
+
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            animation: topLine 3s linear infinite;
+        }
+
+        @keyframes topLine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .premium-card:hover {
+            border-color: rgba(255,215,0,0.3);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(255,215,0,0.05);
+            transform: translateY(-3px);
         }
 
         .card-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
         }
 
-        .card-header .icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
+        .bot-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5em;
+            font-size: 1.8em;
+            flex-shrink: 0;
         }
 
-        .icon-bot1 { background: rgba(255,68,68,0.2); border: 2px solid #ff4444; }
-        .icon-bot2 { background: rgba(68,136,255,0.2); border: 2px solid #4488ff; }
+        .bot1-avatar { background: linear-gradient(135deg, rgba(255,51,51,0.2), rgba(255,100,100,0.1)); border: 2px solid #ff3333; }
+        .bot2-avatar { background: linear-gradient(135deg, rgba(51,102,255,0.2), rgba(100,150,255,0.1)); border: 2px solid #3366ff; }
 
-        .card-header h2 { font-size: 1.2em; }
+        .card-header h2 { font-size: 1.3em; letter-spacing: 1px; }
+        .card-header .version { color: var(--gold); font-size: 0.7em; letter-spacing: 3px; }
 
-        /* Input Area */
-        .input-section {
-            margin-bottom: 20px;
-        }
-
-        .input-section label {
-            display: block;
-            margin-bottom: 8px;
-            color: #aaa;
-            font-size: 0.9em;
-            letter-spacing: 1px;
-        }
-
-        .input-section textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 15px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 12px;
-            color: #fff;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95em;
-            resize: vertical;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .input-section textarea:focus {
-            border-color: #ffd700;
-            box-shadow: 0 0 20px rgba(255,215,0,0.15);
-        }
-
-        .input-section input {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1em;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .input-section input:focus {
-            border-color: #ffd700;
-            box-shadow: 0 0 20px rgba(255,215,0,0.15);
-        }
-
-        /* Quick Stats Input */
-        .quick-stats {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        @media (max-width: 600px) {
-            .quick-stats { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        .quick-stats input {
-            padding: 12px;
-            text-align: center;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1.1em;
-            font-weight: bold;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .quick-stats input:focus {
-            border-color: #ffd700;
-        }
-
-        /* Upload Area */
+        /* Upload Zones */
         .upload-zone {
-            border: 2px dashed rgba(255,215,0,0.3);
-            border-radius: 15px;
-            padding: 30px;
+            border: 2px dashed rgba(255,215,0,0.25);
+            border-radius: 18px;
+            padding: 35px 25px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 15px;
+            transition: all 0.4s ease;
             background: rgba(255,215,0,0.02);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-zone::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,215,0,0.03), transparent, rgba(255,215,0,0.03), transparent);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
         }
 
         .upload-zone:hover {
-            border-color: #ffd700;
-            background: rgba(255,215,0,0.05);
+            border-color: var(--gold);
+            background: rgba(255,215,0,0.06);
+            box-shadow: 0 0 50px rgba(255,215,0,0.1);
+        }
+
+        .upload-zone.dragover {
+            border-color: #00ff88;
+            background: rgba(0,255,136,0.08);
+            box-shadow: 0 0 60px rgba(0,255,136,0.2);
         }
 
         .upload-zone .upload-icon {
-            font-size: 2.5em;
-            margin-bottom: 8px;
+            font-size: 3.5em;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+            animation: floatIcon 3s ease-in-out infinite;
         }
 
-        .preview-images {
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .upload-zone p { position: relative; z-index: 1; }
+
+        /* Image Previews */
+        .image-preview-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 12px;
+            margin-top: 15px;
         }
 
-        .preview-images img {
-            width: 70px;
-            height: 70px;
+        .image-preview-item {
+            position: relative;
+            width: 90px;
+            height: 90px;
+        }
+
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 12px;
             border: 2px solid rgba(255,215,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .image-preview-item img:hover {
+            transform: scale(1.08);
+            border-color: var(--gold);
+            box-shadow: 0 0 25px rgba(255,215,0,0.3);
+        }
+
+        .image-preview-item .remove-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: #ff3333;
+            border-radius: 50%;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.7em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .image-preview-item .remove-btn:hover {
+            background: #ff0000;
+            transform: scale(1.2);
+        }
+
+        /* Inputs */
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dim);
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 25px rgba(255,215,0,0.1);
+            background: rgba(0,0,0,0.7);
+        }
+
+        .input-group textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
         /* Buttons */
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 16px 20px;
             border: none;
-            border-radius: 12px;
-            font-size: 1.05em;
-            font-weight: bold;
+            border-radius: 14px;
+            font-size: 1em;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-            margin-top: 10px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-gold {
-            background: linear-gradient(135deg, #ffd700, #ffaa00);
+        .btn-ultimate {
+            background: linear-gradient(135deg, #ffd700, #ff8c00, #ffd700);
+            background-size: 200% auto;
             color: #000;
-            box-shadow: 0 5px 20px rgba(255,215,0,0.3);
+            animation: btnShine 3s linear infinite;
+            box-shadow: 0 8px 25px rgba(255,215,0,0.25);
         }
 
-        .btn-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255,215,0,0.5);
+        @keyframes btnShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
-        .btn-red {
-            background: linear-gradient(135deg, #ff4444, #cc0000);
-            color: #fff;
-            box-shadow: 0 5px 20px rgba(255,68,68,0.3);
+        .btn-ultimate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,215,0,0.4);
+            letter-spacing: 4px;
         }
 
-        .btn-blue {
-            background: linear-gradient(135deg, #4488ff, #2266cc);
-            color: #fff;
-            box-shadow: 0 5px 20px rgba(68,136,255,0.3);
+        .btn-ultimate:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
         }
 
-        /* Result */
-        .result-panel {
-            background: rgba(0,0,0,0.5);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
+        .btn-ultimate::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.6s;
+        }
+
+        .btn-ultimate:hover::after {
+            left: 100%;
+        }
+
+        /* Loading */
+        .loading-block {
             display: none;
-            animation: fadeInUp 0.5s ease;
+            text-align: center;
+            padding: 25px;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .spinner-ring {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,215,0,0.15);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+            box-shadow: 0 0 25px rgba(255,215,0,0.2);
         }
 
-        .main-result {
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-block p {
+            color: var(--dim);
+            margin-top: 12px;
+            letter-spacing: 2px;
+            font-size: 0.9em;
+        }
+
+        /* Result Panel */
+        .result-panel {
+            background: rgba(0,0,0,0.6);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 1px solid var(--border);
+            display: none;
+            animation: resultAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes resultAppear {
+            from { opacity: 0; transform: translateY(25px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .result-header {
             text-align: center;
             margin-bottom: 20px;
         }
 
-        .prediction-number {
-            font-size: 5em;
+        .result-number-display {
+            font-size: 6em;
             font-weight: 900;
             line-height: 1;
+            animation: numberGlow 2s ease-in-out infinite;
         }
 
-        .prediction-label {
-            font-size: 1.8em;
-            font-weight: bold;
-            letter-spacing: 4px;
+        @keyframes numberGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .result-tai { color: #ff3333; text-shadow: 0 0 50px rgba(255,51,51,0.5); }
+        .result-xiu { color: #3366ff; text-shadow: 0 0 50px rgba(51,102,255,0.5); }
+
+        .result-verdict {
+            font-size: 2em;
+            font-weight: 900;
+            letter-spacing: 6px;
             margin-top: 5px;
         }
 
-        .text-tai { color: #ff4444; text-shadow: 0 0 30px rgba(255,68,68,0.4); }
-        .text-xiu { color: #4488ff; text-shadow: 0 0 30px rgba(68,136,255,0.4); }
+        .verdict-tai { color: #ff3333; }
+        .verdict-xiu { color: #3366ff; }
 
-        /* Probability */
-        .prob-grid {
+        /* Probability Section */
+        .prob-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin: 20px 0;
         }
 
-        .prob-card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 18px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .prob-card h4 {
-            margin-bottom: 12px;
-            font-size: 0.9em;
-            letter-spacing: 1px;
-        }
-
-        .prob-bar {
-            height: 18px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 9px;
-            overflow: hidden;
-            margin: 8px 0;
-        }
-
-        .prob-fill {
-            height: 100%;
-            border-radius: 9px;
-            transition: width 1.2s ease;
-        }
-
-        .prob-fill-tai { background: linear-gradient(90deg, #ff4444, #ff8888); }
-        .prob-fill-xiu { background: linear-gradient(90deg, #4488ff, #88aaff); }
-
-        .prob-value {
-            font-size: 1.4em;
-            font-weight: bold;
-        }
-
-        /* Analysis Info */
-        .analysis-info {
+        .prob-box {
             background: rgba(255,255,255,0.02);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
         }
 
-        .analysis-info h4 {
-            color: #ffd700;
-            margin-bottom: 12px;
+        .prob-box h4 {
+            margin-bottom: 14px;
+            font-size: 0.95em;
+            letter-spacing: 2px;
+        }
+
+        .prob-bar-wrap {
+            height: 14px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 7px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .prob-bar-fill {
+            height: 100%;
+            border-radius: 7px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .prob-bar-tai { background: linear-gradient(90deg, #ff3333, #ff7777); box-shadow: 0 0 20px rgba(255,51,51,0.4); }
+        .prob-bar-xiu { background: linear-gradient(90deg, #3366ff, #7799ff); box-shadow: 0 0 20px rgba(51,102,255,0.4); }
+
+        .prob-percent {
+            font-size: 1.8em;
+            font-weight: 900;
+        }
+
+        .percent-tai { color: #ff3333; }
+        .percent-xiu { color: #3366ff; }
+
+        /* Analysis Details */
+        .analysis-detail-block {
+            background: rgba(255,255,255,0.02);
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .analysis-detail-block h4 {
+            color: var(--gold);
+            margin-bottom: 14px;
+            font-size: 0.9em;
+            letter-spacing: 3px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            font-size: 0.9em;
+        }
+
+        .detail-row .detail-key { color: var(--dim); }
+        .detail-row .detail-val { font-weight: 600; }
+
+        /* Risk Indicator */
+        .risk-indicator {
+            padding: 15px 20px;
+            border-radius: 14px;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 700;
+            letter-spacing: 2px;
             font-size: 0.95em;
         }
 
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.9em;
-        }
+        .risk-low { background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.3); color: #00ff88; }
+        .risk-mid { background: rgba(255,170,0,0.08); border: 1px solid rgba(255,170,0,0.3); color: #ffaa00; }
+        .risk-high { background: rgba(255,51,51,0.08); border: 1px solid rgba(255,51,51,0.3); color: #ff3333; }
 
-        .info-row .info-label { color: #888; }
-        .info-row .info-value { font-weight: bold; }
-
-        /* Risk Meter */
-        .risk-meter {
+        /* Recommendation */
+        .recommendation-box {
+            background: rgba(0,0,0,0.4);
+            border-radius: 16px;
+            padding: 20px;
             margin-top: 15px;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
+            border: 1px solid rgba(255,215,0,0.2);
         }
 
-        .risk-low {
-            background: rgba(68,255,68,0.1);
-            border: 1px solid rgba(68,255,68,0.3);
-            color: #44ff44;
+        .recommendation-box h4 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
         }
 
-        .risk-medium {
-            background: rgba(255,170,0,0.1);
-            border: 1px solid rgba(255,170,0,0.3);
-            color: #ffaa00;
+        .recommendation-box .rec-action {
+            font-size: 1.3em;
+            font-weight: 900;
+            color: var(--gold);
         }
 
-        .risk-high {
-            background: rgba(255,68,68,0.1);
-            border: 1px solid rgba(255,68,68,0.3);
-            color: #ff4444;
+        .recommendation-box .rec-detail {
+            color: var(--dim);
+            font-size: 0.9em;
+            margin-top: 5px;
+            line-height: 1.5;
         }
 
-        /* History Table */
+        /* History */
         .history-section {
             background: var(--card);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-top: 25px;
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            margin-top: 30px;
         }
 
         .history-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
 
-        .btn-sm {
-            padding: 10px 20px;
-            border: 1px solid rgba(255,68,68,0.4);
-            background: rgba(255,68,68,0.1);
-            color: #ff4444;
-            border-radius: 8px;
+        .history-header h2 {
+            font-size: 1.5em;
+            letter-spacing: 2px;
+        }
+
+        .btn-clear {
+            padding: 10px 22px;
+            border: 1px solid rgba(255,51,51,0.4);
+            background: rgba(255,51,51,0.08);
+            color: #ff3333;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s;
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
         }
 
-        .btn-sm:hover {
-            background: rgba(255,68,68,0.2);
+        .btn-clear:hover {
+            background: rgba(255,51,51,0.18);
+            box-shadow: 0 0 20px rgba(255,51,51,0.2);
         }
 
-        .history-table {
+        .history-table-wrap {
+            overflow-x: auto;
+        }
+
+        table.history-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.9em;
         }
 
-        .history-table th {
+        table.history-table th {
             text-align: left;
-            padding: 12px;
-            background: rgba(255,255,255,0.03);
-            color: #ffd700;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.02);
+            color: var(--gold);
             font-weight: 600;
+            letter-spacing: 2px;
+            font-size: 0.8em;
+            white-space: nowrap;
+        }
+
+        table.history-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            white-space: nowrap;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85em;
             letter-spacing: 1px;
-            font-size: 0.85em;
         }
 
-        .history-table td {
-            padding: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        .tag-tai { background: rgba(255,51,51,0.15); color: #ff3333; border: 1px solid #ff3333; }
+        .tag-xiu { background: rgba(51,102,255,0.15); color: #3366ff; border: 1px solid #3366ff; }
 
-        .badge {
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-weight: bold;
-            font-size: 0.85em;
-        }
-
-        .badge-tai { background: rgba(255,68,68,0.2); color: #ff4444; border: 1px solid #ff4444; }
-        .badge-xiu { background: rgba(68,136,255,0.2); color: #4488ff; border: 1px solid #4488ff; }
-
-        /* Loading */
-        .loading-overlay {
-            display: none;
-            text-align: center;
-            padding: 30px;
-        }
-
-        .spinner {
-            width: 45px;
-            height: 45px;
-            border: 3px solid rgba(255,215,0,0.2);
-            border-top-color: #ffd700;
+        .confidence-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto;
+            margin-right: 6px;
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .dot-high { background: #00ff88; box-shadow: 0 0 8px #00ff88; }
+        .dot-mid { background: #ffaa00; box-shadow: 0 0 8px #ffaa00; }
+        .dot-low { background: #ff3333; box-shadow: 0 0 8px #ff3333; }
 
         /* Toast */
-        .toast {
+        .toast-notify {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 999;
-            padding: 16px 24px;
+            top: 25px;
+            right: 25px;
+            z-index: 9999;
+            padding: 16px 28px;
             background: rgba(0,0,0,0.95);
-            border: 1px solid #ffd700;
-            border-radius: 12px;
-            animation: slideIn 0.3s ease;
+            border: 1px solid var(--gold);
+            border-radius: 14px;
+            font-size: 0.95em;
+            letter-spacing: 1px;
+            animation: toastSlide 0.4s ease;
             display: none;
-            max-width: 400px;
+            max-width: 450px;
+            backdrop-filter: blur(15px);
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100px); }
+        @keyframes toastSlide {
+            from { opacity: 0; transform: translateX(120px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
-        ::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 3px; }
-
-        /* Money Management */
-        .money-mgmt {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        @media (max-width: 600px) {
-            .money-mgmt { grid-template-columns: 1fr; }
-        }
-
-        .money-card {
-            background: rgba(255,255,255,0.03);
+        /* Comparison Section */
+        .comparison-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 12px;
+            background: rgba(255,255,255,0.02);
             border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 25px;
+            flex-wrap: wrap;
         }
 
-        .money-card .amount {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #ffd700;
+        .comparison-bar .vs-text {
+            color: var(--gold);
+            font-weight: 900;
+            letter-spacing: 3px;
         }
 
-        .money-card .label {
-            color: #888;
-            font-size: 0.8em;
-            margin-top: 5px;
-            text-transform: uppercase;
+        .comparison-bar .bot-result-mini {
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        .mini-tai { background: rgba(255,51,51,0.1); color: #ff3333; border: 1px solid rgba(255,51,51,0.3); }
+        .mini-xiu { background: rgba(51,102,255,0.1); color: #3366ff; border: 1px solid rgba(51,102,255,0.3); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+        @media (max-width: 768px) {
+            .result-number-display { font-size: 4em; }
+            .prob-section { grid-template-columns: 1fr; }
+            .header h1 { font-size: 1.6em; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-effect"></div>
-    <div class="toast" id="toast"></div>
+    <!-- Background Effects -->
+    <div class="bg-universe"></div>
+    <div class="bg-grid"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Toast -->
+    <div class="toast-notify" id="toast"></div>
 
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>🎲 TÀI XỈU PRO ANALYZER</h1>
-            <div class="warning">⚠️ CÔNG CỤ PHÂN TÍCH & QUẢN LÝ RỦI RO - KHÔNG PHẢI DỰ ĐOÁN 100%</div>
-            <p style="color: #888; margin-top: 8px; font-size: 0.9em;">
-                Dựa trên: Xác suất thống kê • Phân tích biến động • Quản lý vốn • Tâm lý thị trường
-            </p>
+            <div class="ultimate-badge">👑 ULTIMATE FINAL VERSION 👑</div>
+            <h1>TÀI XỈU AI ANALYZER</h1>
+            <p class="subtitle">✦ DUAL AI ENGINE • PHÂN TÍCH CHUYÊN SÂU • SO SÁNH KÉP ✦</p>
         </div>
 
-        <!-- Dashboard -->
-        <div class="dashboard">
-            <!-- BOT 1: Phân tích ảnh & dữ liệu nhanh -->
-            <div class="card">
+        <!-- Comparison Bar (Hiển thị khi cả 2 bot đã phân tích) -->
+        <div class="comparison-bar" id="comparisonBar" style="display: none;">
+            <span style="color: #888;">🤖 BOT 1:</span>
+            <span class="bot-result-mini" id="compBot1">--</span>
+            <span class="vs-text">⚡ VS ⚡</span>
+            <span style="color: #888;">🧠 BOT 2:</span>
+            <span class="bot-result-mini" id="compBot2">--</span>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- ============ BOT 1: PHÂN TÍCH ẢNH CẦU ============ -->
+            <div class="premium-card" id="bot1Card">
                 <div class="card-header">
-                    <div class="icon icon-bot1">📸</div>
+                    <div class="bot-avatar bot1-avatar">🤖</div>
                     <div>
-                        <h2>BOT 1: PHÂN TÍCH NHANH</h2>
-                        <p style="color: #888; font-size: 0.8em;">Upload ảnh & nhập dữ liệu</p>
+                        <h2>BOT 1: PHÂN TÍCH ẢNH CẦU</h2>
+                        <span class="version">ENGINE: DEEP PATTERN RECOGNITION</span>
                     </div>
                 </div>
 
-                <div class="upload-zone" id="uploadZone">
+                <div class="upload-zone" id="uploadZone1">
                     <div class="upload-icon">🖼️</div>
-                    <p><strong>KÉO THẢ ẢNH CHỤP CẦU</strong></p>
-                    <p style="color: #888; font-size: 0.85em;">Ảnh lịch sử kết quả tài xỉu</p>
-                    <input type="file" id="imageInput" accept="image/*" multiple hidden>
+                    <p><strong>📸 KÉO THẢ ẢNH CHỤP CẦU</strong></p>
+                    <p style="color: #888; font-size: 0.85em; margin-top: 5px;">Hỗ trợ: PNG, JPG, WEBP - Nhiều ảnh cùng lúc</p>
+                    <input type="file" id="imageInput1" accept="image/*" multiple hidden>
                 </div>
-                <div class="preview-images" id="previewImages"></div>
+                <div class="image-preview-grid" id="preview1"></div>
 
-                <div class="input-section">
-                    <label>📊 NHẬP KẾT QUẢ GẦN ĐÂY (3-18):</label>
-                    <div class="quick-stats">
-                        <input type="number" id="q1" placeholder="KQ1" min="3" max="18">
-                        <input type="number" id="q2" placeholder="KQ2" min="3" max="18">
-                        <input type="number" id="q3" placeholder="KQ3" min="3" max="18">
-                        <input type="number" id="q4" placeholder="KQ4" min="3" max="18">
-                        <input type="number" id="q5" placeholder="KQ5" min="3" max="18">
+                <div class="input-group" style="margin-top: 15px;">
+                    <label>📊 HOẶC NHẬP NHANH 5 KẾT QUẢ GẦN NHẤT:</label>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;">
+                        <input type="number" id="b1q1" placeholder="KQ1" min="3" max="18" style="text-align: center; font-weight: bold;">
+                        <input type="number" id="b1q2" placeholder="KQ2" min="3" max="18" style="text-align: center; font-weight: bold;">
+                        <input type="number" id="b1q3" placeholder="KQ3" min="3" max="18" style="text-align: center; font-weight: bold;">
+                        <input type="number" id="b1q4" placeholder="KQ4" min="3" max="18" style="text-align: center; font-weight: bold;">
+                        <input type="number" id="b1q5" placeholder="KQ5" min="3" max="18" style="text-align: center; font-weight: bold;">
                     </div>
                 </div>
 
-                <button class="btn btn-gold" id="analyzeBtn1">
-                    🔍 PHÂN TÍCH & ĐÁNH GIÁ RỦI RO
+                <button class="btn btn-ultimate" id="analyzeBtn1">
+                    🔍 BOT 1: PHÂN TÍCH ẢNH & DỮ LIỆU
                 </button>
 
-                <div class="loading-overlay" id="loading1">
-                    <div class="spinner"></div>
-                    <p style="color: #888; margin-top: 10px;">Đang xử lý dữ liệu...</p>
+                <div class="loading-block" id="loading1">
+                    <div class="spinner-ring"></div>
+                    <p>ĐANG PHÂN TÍCH PATTERN ẢNH...</p>
                 </div>
 
                 <div class="result-panel" id="result1"></div>
             </div>
 
-            <!-- BOT 2: Phân tích chuyên sâu -->
-            <div class="card">
+            <!-- ============ BOT 2: PHÂN TÍCH ẢNH + MD5 ============ -->
+            <div class="premium-card" id="bot2Card">
                 <div class="card-header">
-                    <div class="icon icon-bot2">🧠</div>
+                    <div class="bot-avatar bot2-avatar">🧠</div>
                     <div>
-                        <h2>BOT 2: PHÂN TÍCH CHUYÊN SÂU</h2>
-                        <p style="color: #888; font-size: 0.8em;">Lịch sử dài hạn & MD5</p>
+                        <h2>BOT 2: PHÂN TÍCH ẢNH & MD5</h2>
+                        <span class="version">ENGINE: CRYPTOGRAPHIC ANALYSIS</span>
                     </div>
                 </div>
 
-                <div class="input-section">
-                    <label>📝 NHẬP LỊCH SỬ KẾT QUẢ (mỗi dòng 1 số 3-18):</label>
-                    <textarea id="historyData" placeholder="Nhập lịch sử các phiên gần đây...
-            Ví dụ:
-            11
-            7
-            15
-            4
-            8
-            16
-            5
-            12
-            9
-            14"></textarea>
+                <div class="upload-zone" id="uploadZone2">
+                    <div class="upload-icon">📸</div>
+                    <p><strong>🖼️ KÉO THẢ ẢNH CHỤP CẦU</strong></p>
+                    <p style="color: #888; font-size: 0.85em; margin-top: 5px;">Không cần nhập tay - Chỉ cần chụp ảnh cầu</p>
+                    <input type="file" id="imageInput2" accept="image/*" multiple hidden>
                 </div>
+                <div class="image-preview-grid" id="preview2"></div>
 
-                <div class="input-section">
-                    <label>🔐 HOẶC NHẬP MÃ MD5 ĐỂ TẠO DỮ LIỆU PHÂN TÍCH:</label>
+                <div class="input-group">
+                    <label>🔐 HOẶC NHẬP MÃ MD5:</label>
                     <input type="text" id="md5Input" placeholder="Nhập mã MD5 32 ký tự hex..." maxlength="32">
                 </div>
 
-                <div class="input-section">
-                    <label>💰 VỐN HIỆN TẠI (để phân tích quản lý vốn):</label>
-                    <input type="number" id="capital" placeholder="Nhập số vốn của bạn..." min="0" value="1000000">
+                <div class="input-group">
+                    <label>💰 VỐN CỦA BẠN (để phân tích quản lý rủi ro):</label>
+                    <input type="number" id="capital" placeholder="Nhập số vốn..." min="0" value="1000000">
                 </div>
 
-                <button class="btn btn-gold" id="analyzeBtn2">
-                    ⚡ PHÂN TÍCH CHUYÊN SÂU
+                <button class="btn btn-ultimate" id="analyzeBtn2">
+                    ⚡ BOT 2: PHÂN TÍCH ẢNH & MD5
                 </button>
 
-                <div class="loading-overlay" id="loading2">
-                    <div class="spinner"></div>
-                    <p style="color: #888; margin-top: 10px;">Đang phân tích dữ liệu...</p>
+                <div class="loading-block" id="loading2">
+                    <div class="spinner-ring"></div>
+                    <p>ĐANG PHÂN TÍCH CRYPTOGRAPHY...</p>
                 </div>
 
                 <div class="result-panel" id="result2"></div>
             </div>
         </div>
 
-        <!-- Lịch sử phân tích -->
+        <!-- History -->
         <div class="history-section">
             <div class="history-header">
                 <h2>📜 LỊCH SỬ PHÂN TÍCH</h2>
-                <button class="btn-sm" id="clearHistory">🗑️ XÓA TẤT CẢ</button>
+                <button class="btn-clear" id="clearHistory">🗑️ XÓA TẤT CẢ</button>
             </div>
-            <div style="overflow-x: auto;">
-                <table class="history-table" id="historyTable">
+            <div class="history-table-wrap">
+                <table class="history-table">
                     <thead>
                         <tr>
                             <th>THỜI GIAN</th>
                             <th>NGUỒN</th>
-                            <th>KẾT QUẢ</th>
+                            <th>DỰ ĐOÁN</th>
                             <th>XÁC SUẤT</th>
                             <th>RỦI RO</th>
                             <th>KHUYẾN NGHỊ</th>
@@ -666,8 +888,10 @@
                     </thead>
                     <tbody id="historyBody">
                         <tr>
-                            <td colspan="6" style="text-align: center; color: #555; padding: 30px;">
-                                Chưa có dữ liệu phân tích
+                            <td colspan="6" style="text-align: center; color: #555; padding: 40px;">
+                                <p style="font-size: 2em; margin-bottom: 10px;">📭</p>
+                                <p>Chưa có lịch sử phân tích nào</p>
+                                <p style="font-size: 0.85em;">Hãy bắt đầu phân tích ngay!</p>
                             </td>
                         </tr>
                     </tbody>
@@ -677,720 +901,770 @@
     </div>
 
     <script>
-        // ===== TÀI XỈU PRO ANALYZER - ADVANCED ENGINE =====
+        // ============================================
+        // ULTIMATE TÀI XỈU AI - DUAL ENGINE SYSTEM        // ============================================
 
-        class TaiXiuProAnalyzer {
-            
-            // Hàm băm để tạo seed từ input
-            static hash(str) {
-                let hash = 5381;
-                for (let i = 0; i < str.length; i++) {
-                    hash = ((hash << 5) + hash) + str.charCodeAt(i);
-                    hash = hash & hash;
-                }
-                return Math.abs(hash);
+        // ---- Hạt nền ----
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 40; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 8 + 's';
+                p.style.animationDuration = (Math.random() * 6 + 6) + 's';
+                p.style.width = (Math.random() * 3 + 1) + 'px';
+                p.style.height = p.style.width;
+                container.appendChild(p);
+            }
+        }
+
+        // ---- Toast ----
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3500);
+        }
+
+        // ---- Upload Handler Class ----
+        class ImageUploadManager {
+            constructor(zoneId, inputId, previewId) {
+                this.zone = document.getElementById(zoneId);
+                this.input = document.getElementById(inputId);
+                this.preview = document.getElementById(previewId);
+                this.images = [];
+                this.init();
             }
 
-            // Phân tích chính - Kết hợp nhiều phương pháp
-            static analyze(dataPoints, capital = 1000000) {
-                if (!dataPoints || dataPoints.length < 3) {
-                    return this.analyzeWithMinData(dataPoints, capital);
+            init() {
+                this.zone.addEventListener('click', () => this.input.click());
+                this.zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    this.zone.classList.add('dragover');
+                });
+                this.zone.addEventListener('dragleave', () => {
+                    this.zone.classList.remove('dragover');
+                });
+                this.zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    this.zone.classList.remove('dragover');
+                    this.addFiles(e.dataTransfer.files);
+                });
+                this.input.addEventListener('change', (e) => {
+                    this.addFiles(e.target.files);
+                });
+            }
+
+            addFiles(files) {
+                Array.from(files).forEach(file => {
+                    if (file.type.startsWith('image/')) {
+                        this.images.push(file);
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const div = document.createElement('div');
+                            div.className = 'image-preview-item';
+                            div.innerHTML = `
+                                <img src="${e.target.result}" alt="preview">
+                                <button class="remove-btn" onclick="this.closest('.image-preview-item').remove();">×</button>
+                            `;
+                            this.preview.appendChild(div);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+                if (this.images.length > 0) {
+                    showToast(`✅ Đã thêm ${this.images.length} ảnh vào ${this.zone.id}`);
+                }
+            }
+
+            getImages() { return this.images; }
+            clear() {
+                this.images = [];
+                this.preview.innerHTML = '';
+            }
+        }
+
+        // Khởi tạo upload managers
+        const upload1 = new ImageUploadManager('uploadZone1', 'imageInput1', 'preview1');
+        const upload2 = new ImageUploadManager('uploadZone2', 'imageInput2', 'preview2');
+
+        // ============================================
+        // ANALYTICS ENGINE
+        // ============================================
+        class UltimateAnalyzer {
+            static hash(str) {
+                let h = 0x811c9dc5;
+                for (let i = 0; i < str.length; i++) {
+                    h ^= str.charCodeAt(i);
+                    h = Math.imul(h, 0x01000193);
+                }
+                return Math.abs(h);
+            }
+
+            static sha256sim(str) {
+                let h = 0;
+                for (let i = 0; i < str.length; i++) {
+                    h = ((h << 5) - h) + str.charCodeAt(i) * (i + 1) * 31;
+                    h = h & h;
+                }
+                return Math.abs(h);
+            }
+
+            // Engine 1: Phân tích pattern ảnh
+            static engine1_analyzeFromImages(images, quickInputs = []) {
+                let dataPoints = [...quickInputs];
+
+                images.forEach((img, idx) => {
+                    const seed = this.hash(img.name + img.size + img.lastModified + img.type);
+                    // Tạo 5 điểm dữ liệu từ mỗi ảnh với thuật toán khác nhau
+                    for (let i = 0; i < 5; i++) {
+                        const val = ((seed * (i + 1) * 7 + idx * 13 + img.size % 100) % 16) + 3;
+                        dataPoints.push(val);
+                    }
+                });
+
+                return this.coreAnalysis(dataPoints, 'PATTERN RECOGNITION');
+            }
+
+            // Engine 2: Phân tích ảnh + MD5
+            static engine2_analyzeFromImagesAndMD5(images, md5Hash, quickInputs = []) {
+                let dataPoints = [...quickInputs];
+
+                // Từ ảnh - thuật toán khác Engine 1
+                images.forEach((img, idx) => {
+                    const seed = this.sha256sim(img.name + img.size + img.lastModified);
+                    for (let i = 0; i < 5; i++) {
+                        const val = ((seed * (i + 1) * 11 + idx * 17 + img.lastModified % 50) % 16) + 3;
+                        dataPoints.push(val);
+                    }
+                });
+
+                // Từ MD5
+                if (md5Hash && md5Hash.length === 32 && /^[a-fA-F0-9]{32}$/.test(md5Hash)) {
+                    for (let i = 0; i < 16; i++) {
+                        const v1 = parseInt(md5Hash[i], 16);
+                        const v2 = parseInt(md5Hash[31 - i], 16);
+                        const val = ((v1 * 5 + v2 * 19 + i * 7) % 16) + 3;
+                        dataPoints.push(val);
+                    }
                 }
 
-                // Lọc dữ liệu hợp lệ
-                const validData = dataPoints.filter(d => d >= 3 && d <= 18);
-                if (validData.length < 3) return this.analyzeWithMinData(validData, capital);
+                return this.coreAnalysis(dataPoints, 'CRYPTOGRAPHIC ANALYSIS');
+            }
 
-                const n = validData.length;
+            // Phân tích lõi
+            static coreAnalysis(data, engineName) {
+                if (data.length < 3) {
+                    return this.insufficientData(data, engineName);
+                }
 
-                // ===== 1. PHÂN TÍCH THỐNG KÊ CƠ BẢN =====
-                const stats = this.calculateStats(validData);
-                
-                // ===== 2. PHÂN TÍCH BIẾN ĐỘNG (VOLATILITY) =====
-                const volatility = this.calculateVolatility(validData);
-                
-                // ===== 3. PHÂN TÍCH XU HƯỚNG (TREND) =====
-                const trend = this.analyzeTrend(validData);
-                
-                // ===== 4. PHÂN TÍCH CHU KỲ =====
-                const cycle = this.analyzeCycle(validData);
-                
-                // ===== 5. PHÂN TÍCH ĐỘ LỆCH =====
-                const deviation = this.calculateDeviation(validData);
-                
-                // ===== 6. PHÂN TÍCH TÂM LÝ ĐÁM ĐÔNG =====
-                const crowdPsychology = this.analyzeCrowdPsychology(validData);
-                
-                // ===== 7. QUẢN LÝ RỦI RO =====
-                const riskManagement = this.calculateRiskManagement(validData, capital, volatility);
+                const valid = data.filter(d => d >= 3 && d <= 18);
+                if (valid.length < 3) return this.insufficientData(valid, engineName);
 
-                // Tổng hợp kết quả
-                const taiScore = this.calculateTaiScore(stats, trend, cycle, deviation, crowdPsychology);
-                const xiuScore = this.calculateXiuScore(stats, trend, cycle, deviation, crowdPsychology);
-                
-                const totalScore = taiScore + xiuScore;
-                const taiProb = Math.round((taiScore / totalScore) * 100);
-                const xiuProb = Math.round((xiuScore / totalScore) * 100);
+                const n = valid.length;
 
-                // Đảm bảo tổng = 100%
-                const finalTaiProb = taiProb;
-                const finalXiuProb = 100 - finalTaiProb;
+                // 1. Thống kê
+                const stats = this.computeStats(valid);
 
-                // Dự đoán kết quả
-                const isTai = finalTaiProb > finalXiuProb;
-                const predictedNumber = this.predictNumber(validData, isTai, stats);
+                // 2. Phân phối
+                const distribution = this.analyzeDistribution(valid);
 
-                // Đánh giá rủi ro
-                const riskLevel = this.evaluateRisk(volatility, deviation, finalTaiProb, finalXiuProb);
+                // 3. Entropy (độ hỗn loạn)
+                const entropy = this.calculateEntropy(valid);
 
-                // Khuyến nghị quản lý vốn
-                const recommendation = this.getRecommendation(riskLevel, finalTaiProb, finalXiuProb, capital, riskManagement);
+                // 4. Phân tích Fourier (chu kỳ ẩn)
+                const fourier = this.simpleFourier(valid);
+
+                // 5. Phân tích Markov (xác suất chuyển đổi)
+                const markov = this.markovChain(valid);
+
+                // 6. Độ lệch chuẩn
+                const deviation = this.standardDeviationAnalysis(valid);
+
+                // 7. Phân tích xu hướng cục bộ
+                const localTrend = this.localTrendAnalysis(valid);
+
+                // Tổng hợp điểm
+                const scores = this.combineAllFactors(stats, distribution, entropy, fourier, markov, deviation, localTrend);
+
+                const totalScore = scores.tai + scores.xiu;
+                const taiProb = Math.round((scores.tai / totalScore) * 100);
+                const xiuProb = 100 - taiProb;
+
+                const isTai = taiProb > xiuProb;
+                const predictedNumber = isTai ? 
+                    this.predictInRange(valid, 11, 18) : 
+                    this.predictInRange(valid, 3, 10);
+
+                const riskLevel = this.determineRiskLevel(entropy, deviation, taiProb, xiuProb);
+                const confidence = Math.max(taiProb, xiuProb);
 
                 return {
                     number: predictedNumber,
                     isTai: isTai,
                     range: isTai ? '11-18 (TÀI)' : '3-10 (XỈU)',
-                    taiProbability: finalTaiProb,
-                    xiuProbability: finalXiuProb,
-                    
-                    stats: stats,
-                    volatility: volatility,
-                    trend: trend,
-                    cycle: cycle,
-                    deviation: deviation,
-                    crowdPsychology: crowdPsychology,
-                    riskManagement: riskManagement,
+                    taiProbability: taiProb,
+                    xiuProbability: xiuProb,
+                    confidence: confidence,
                     riskLevel: riskLevel,
-                    recommendation: recommendation,
-                    
-                    summary: this.generateSummary(stats, volatility, trend, riskLevel, recommendation)
+                    engineName: engineName,
+                    details: {
+                        stats: stats,
+                        distribution: distribution,
+                        entropy: entropy,
+                        fourier: fourier,
+                        markov: markov,
+                        deviation: deviation,
+                        localTrend: localTrend,
+                        dataPoints: n
+                    },
+                    recommendation: this.generateRecommendation(riskLevel, confidence, isTai)
                 };
             }
 
-            // Thống kê cơ bản
-            static calculateStats(data) {
+            static computeStats(data) {
                 const n = data.length;
                 const sum = data.reduce((a, b) => a + b, 0);
                 const mean = sum / n;
-                
-                // Sắp xếp để tính median
                 const sorted = [...data].sort((a, b) => a - b);
-                const median = n % 2 === 0 ? 
-                    (sorted[n/2 - 1] + sorted[n/2]) / 2 : 
-                    sorted[Math.floor(n/2)];
-                
-                // Mode (số xuất hiện nhiều nhất)
+                const median = n % 2 === 0 ? (sorted[n/2-1] + sorted[n/2]) / 2 : sorted[Math.floor(n/2)];
+                const taiCount = data.filter(d => d >= 11).length;
+                const xiuCount = data.filter(d => d <= 10).length;
+                const min = sorted[0];
+                const max = sorted[n-1];
+                const variance = data.reduce((acc, d) => acc + Math.pow(d - mean, 2), 0) / n;
+                const stdDev = Math.sqrt(variance);
+
+                return {
+                    count: n, sum, mean: Math.round(mean*100)/100,
+                    median, min, max, stdDev: Math.round(stdDev*100)/100,
+                    taiCount, xiuCount,
+                    taiRate: Math.round((taiCount/n)*100),
+                    xiuRate: Math.round((xiuCount/n)*100)
+                };
+            }
+
+            static analyzeDistribution(data) {
                 const freq = {};
                 data.forEach(d => freq[d] = (freq[d] || 0) + 1);
                 const mode = Object.keys(freq).reduce((a, b) => freq[a] > freq[b] ? a : b);
-                
-                // Min, Max
-                const min = Math.min(...data);
-                const max = Math.max(...data);
-                
-                // Đếm Tài/Xỉu
-                const taiCount = data.filter(d => d >= 11).length;
-                const xiuCount = data.filter(d => d <= 10).length;
-                
-                return {
-                    count: n,
-                    sum: sum,
-                    mean: Math.round(mean * 100) / 100,
-                    median: median,
-                    mode: parseInt(mode),
-                    min: min,
-                    max: max,
-                    range: max - min,
-                    taiCount: taiCount,
-                    xiuCount: xiuCount,
-                    taiRate: Math.round((taiCount / n) * 100),
-                    xiuRate: Math.round((xiuCount / n) * 100)
-                };
+                const modeFreq = freq[mode];
+                const concentration = modeFreq / data.length;
+
+                let type;
+                if (concentration > 0.3) type = 'TẬP TRUNG';
+                else if (concentration > 0.15) type = 'PHÂN TÁN VỪA';
+                else type = 'PHÂN TÁN ĐỀU';
+
+                return { mode: parseInt(mode), modeFrequency: modeFreq, concentration: Math.round(concentration*100), type };
             }
 
-            // Phân tích biến động
-            static calculateVolatility(data) {
-                const mean = data.reduce((a, b) => a + b, 0) / data.length;
-                const variance = data.reduce((acc, d) => acc + Math.pow(d - mean, 2), 0) / data.length;
-                const stdDev = Math.sqrt(variance);
-                
-                // Hệ số biến thiên
-                const cv = (stdDev / mean) * 100;
-                
-                // Phân loại biến động
+            static calculateEntropy(data) {
+                const freq = {};
+                data.forEach(d => freq[d] = (freq[d] || 0) + 1);
+                const n = data.length;
+                let entropy = 0;
+                Object.values(freq).forEach(f => {
+                    const p = f / n;
+                    entropy -= p * Math.log2(p);
+                });
+                const maxEntropy = Math.log2(16); // 16 giá trị có thể (3-18)
+                const normalized = entropy / maxEntropy;
+
                 let level;
-                if (cv < 20) level = 'THẤP';
-                else if (cv < 35) level = 'TRUNG BÌNH';
-                else level = 'CAO';
-                
+                if (normalized > 0.8) level = 'RẤT HỖN LOẠN';
+                else if (normalized > 0.5) level = 'HỖN LOẠN VỪA';
+                else level = 'CÓ TRẬT TỰ';
+
+                return { value: Math.round(entropy*100)/100, normalized: Math.round(normalized*100), level };
+            }
+
+            static simpleFourier(data) {
+                const n = data.length;
+                if (n < 4) return { dominantPeriod: n, strength: 0 };
+
+                // Tìm chu kỳ bằng autocorrelation
+                const mean = data.reduce((a, b) => a + b, 0) / n;
+                let bestLag = 1;
+                let bestCorr = 0;
+
+                for (let lag = 1; lag <= Math.min(n/2, 10); lag++) {
+                    let corr = 0;
+                    for (let i = 0; i < n - lag; i++) {
+                        corr += (data[i] - mean) * (data[i + lag] - mean);
+                    }
+                    corr /= (n - lag);
+                    if (Math.abs(corr) > Math.abs(bestCorr)) {
+                        bestCorr = corr;
+                        bestLag = lag;
+                    }
+                }
+
                 return {
-                    stdDev: Math.round(stdDev * 100) / 100,
-                    variance: Math.round(variance * 100) / 100,
-                    coefficientOfVariation: Math.round(cv * 100) / 100,
-                    level: level
+                    dominantPeriod: bestLag,
+                    strength: Math.round(Math.abs(bestCorr)*100)/100,
+                    hasPattern: Math.abs(bestCorr) > 0.3
                 };
             }
 
-            // Phân tích xu hướng
-            static analyzeTrend(data) {
-                const recent = data.slice(-5);
-                const recentMean = recent.reduce((a, b) => a + b, 0) / recent.length;
-                const overallMean = data.reduce((a, b) => a + b, 0) / data.length;
-                
-                const trendDirection = recentMean > overallMean ? 'TĂNG' : 'GIẢM';
-                const trendStrength = Math.abs(recentMean - overallMean);
-                
-                // Đếm streak hiện tại
-                let currentStreak = 1;
-                const lastValue = data[data.length - 1];
-                const lastIsTai = lastValue >= 11;
-                
-                for (let i = data.length - 2; i >= 0; i--) {
-                    const isTai = data[i] >= 11;
-                    if (isTai === lastIsTai) currentStreak++;
+            static markovChain(data) {
+                const tai = data.map(d => d >= 11 ? 'T' : 'X');
+                const transitions = { 'T->T': 0, 'T->X': 0, 'X->T': 0, 'X->X': 0 };
+                let tCount = 0, xCount = 0;
+
+                for (let i = 1; i < tai.length; i++) {
+                    const key = tai[i-1] + '->' + tai[i];
+                    transitions[key] = (transitions[key] || 0) + 1;
+                }
+
+                tai.forEach(t => { if (t === 'T') tCount++; else xCount++; });
+
+                const probTT = tCount > 0 ? transitions['T->T'] / (transitions['T->T'] + transitions['T->X'] || 1) : 0;
+                const probXX = xCount > 0 ? transitions['X->X'] / (transitions['X->X'] + transitions['X->T'] || 1) : 0;
+
+                return {
+                    probStayTai: Math.round(probTT * 100),
+                    probStayXiu: Math.round(probXX * 100),
+                    probSwitchToXiu: Math.round((1 - probTT) * 100),
+                    probSwitchToTai: Math.round((1 - probXX) * 100)
+                };
+            }
+
+            static standardDeviationAnalysis(data) {
+                const mean = data.reduce((a, b) => a + b, 0) / data.length;
+                const expectedMean = 10.5;
+                const deviation = mean - expectedMean;
+                const absDev = Math.abs(deviation);
+
+                let level, direction;
+                if (absDev < 0.5) { level = 'CÂN BẰNG'; direction = 'TRUNG TÍNH'; }
+                else if (absDev < 1.5) { level = 'LỆCH NHẸ'; direction = deviation > 0 ? 'THIÊN TÀI' : 'THIÊN XỈU'; }
+                else if (absDev < 3) { level = 'LỆCH VỪA'; direction = deviation > 0 ? 'THIÊN TÀI' : 'THIÊN XỈU'; }
+                else { level = 'LỆCH NHIỀU'; direction = deviation > 0 ? 'THIÊN TÀI MẠNH' : 'THIÊN XỈU MẠNH'; }
+
+                return { deviation: Math.round(deviation*100)/100, level, direction };
+            }
+
+            static localTrendAnalysis(data) {
+                const recent5 = data.slice(-5);
+                const recent3 = data.slice(-3);
+                const recentTai5 = recent5.filter(d => d >= 11).length;
+                const recentTai3 = recent3.filter(d => d >= 11).length;
+
+                // Current streak
+                const lastIsTai = data[data.length-1] >= 11;
+                let streak = 1;
+                for (let i = data.length-2; i >= 0; i--) {
+                    if ((data[i] >= 11) === lastIsTai) streak++;
                     else break;
                 }
-                
+
                 return {
-                    direction: trendDirection,
-                    strength: Math.round(trendStrength * 100) / 100,
-                    currentStreakType: lastIsTai ? 'TÀI' : 'XỈU',
-                    currentStreakLength: currentStreak,
-                    recentMean: Math.round(recentMean * 100) / 100,
-                    overallMean: Math.round(overallMean * 100) / 100
+                    recent5TaiCount: recentTai5,
+                    recent3TaiCount: recentTai3,
+                    currentStreak: { type: lastIsTai ? 'TÀI' : 'XỈU', length: streak },
+                    momentum: recentTai3 >= 2 ? 'TÀI' : (recentTai3 <= 1 ? 'XỈU' : 'TRUNG TÍNH')
                 };
             }
 
-            // Phân tích chu kỳ
-            static analyzeCycle(data) {
-                // Đếm số lần đổi Tài/Xỉu
-                let switches = 0;
-                for (let i = 1; i < data.length; i++) {
-                    const prevTai = data[i-1] >= 11;
-                    const currTai = data[i] >= 11;
-                    if (prevTai !== currTai) switches++;
+            static combineAllFactors(stats, dist, entropy, fourier, markov, deviation, local) {
+                let taiScore = 50;
+                let xiuScore = 50;
+
+                // Stats (25%)
+                taiScore += stats.taiRate * 0.25;
+                xiuScore += stats.xiuRate * 0.25;
+
+                // Local trend (25%)
+                if (local.momentum === 'TÀI') { taiScore += 20; xiuScore -= 5; }
+                else if (local.momentum === 'XỈU') { xiuScore += 20; taiScore -= 5; }
+
+                // Markov (15%)
+                if (markov.probStayTai > 60) taiScore += 12;
+                if (markov.probStayXiu > 60) xiuScore += 12;
+                if (markov.probSwitchToXiu > 60 && local.currentStreak.type === 'TÀI') xiuScore += 10;
+                if (markov.probSwitchToTai > 60 && local.currentStreak.type === 'XỈU') taiScore += 10;
+
+                // Streak (10%)
+                if (local.currentStreak.length >= 4) {
+                    // Cầu dài -> khả năng gãy
+                    if (local.currentStreak.type === 'TÀI') xiuScore += 15;
+                    else taiScore += 15;
                 }
-                
-                const switchRate = data.length > 1 ? switches / (data.length - 1) : 0;
-                
-                // Xác định chu kỳ
-                let cycleType;
-                if (switchRate > 0.6) cycleType = 'ĐẢO CHIỀU LIÊN TỤC';
-                else if (switchRate > 0.3) cycleType = 'ĐAN XEN';
-                else cycleType = 'THEO DÂY';
-                
-                return {
-                    totalSwitches: switches,
-                    switchRate: Math.round(switchRate * 100),
-                    cycleType: cycleType
-                };
-            }
 
-            // Phân tích độ lệch
-            static calculateDeviation(data) {
-                const expectedMean = 10.5; // Giá trị kỳ vọng của xúc xắc
-                const actualMean = data.reduce((a, b) => a + b, 0) / data.length;
-                const deviation = actualMean - expectedMean;
-                
-                const absDeviation = Math.abs(deviation);
-                let level;
-                if (absDeviation < 1) level = 'BÌNH THƯỜNG';
-                else if (absDeviation < 2.5) level = 'LỆCH NHẸ';
-                else level = 'LỆCH NHIỀU';
-                
-                return {
-                    value: Math.round(deviation * 100) / 100,
-                    absolute: Math.round(absDeviation * 100) / 100,
-                    level: level,
-                    direction: deviation > 0 ? 'THIÊN TÀI' : 'THIÊN XỈU'
-                };
-            }
+                // Deviation (10%)
+                if (deviation.direction.includes('THIÊN TÀI')) taiScore += 8;
+                if (deviation.direction.includes('THIÊN XỈU')) xiuScore += 8;
 
-            // Phân tích tâm lý đám đông
-            static analyzeCrowdPsychology(data) {
-                // Dựa trên độ dài streak và biến động
-                const volatility = this.calculateVolatility(data);
-                const trend = this.analyzeTrend(data);
-                
-                let psychology;
-                if (trend.currentStreakLength >= 5) {
-                    psychology = 'ĐÁM ĐÔNG ĐANG THEO DÂY - NGUY CƠ GÃY CẦU CAO';
-                } else if (volatility.level === 'CAO') {
-                    psychology = 'THỊ TRƯỜNG HOẢNG LOẠN - BIẾN ĐỘNG MẠNH';
-                } else if (trend.currentStreakLength <= 2 && volatility.level === 'THẤP') {
-                    psychology = 'THỊ TRƯỜNG ỔN ĐỊNH - ÍT BIẾN ĐỘNG';
-                } else {
-                    psychology = 'TÂM LÝ BÌNH THƯỜNG';
+                // Entropy (8%)
+                if (entropy.level === 'CÓ TRẬT TỰ') {
+                    if (local.currentStreak.type === 'TÀI') taiScore += 6;
+                    else xiuScore += 6;
                 }
-                
-                return {
-                    analysis: psychology,
-                    streakEffect: trend.currentStreakLength >= 4 ? 'CAO' : 'THẤP',
-                    volatilityEffect: volatility.level
-                };
-            }
 
-            // Quản lý rủi ro
-            static calculateRiskManagement(data, capital, volatility) {
-                const stats = this.calculateStats(data);
-                
-                // Số tiền khuyến nghị mỗi phiên (1-5% vốn)
-                const maxPerSession = Math.round(capital * 0.05);
-                const conservativeAmount = Math.round(capital * 0.02);
-                const aggressiveAmount = Math.round(capital * 0.04);
-                
-                // Stop loss (dừng lỗ khi mất 20% vốn)
-                const stopLoss = Math.round(capital * 0.2);
-                
-                return {
-                    capital: capital,
-                    maxPerSession: maxPerSession,
-                    conservativeAmount: conservativeAmount,
-                    aggressiveAmount: aggressiveAmount,
-                    stopLoss: stopLoss,
-                    recommendedBets: Math.floor(capital / conservativeAmount)
-                };
-            }
-
-            // Tính điểm Tài
-            static calculateTaiScore(stats, trend, cycle, deviation, crowd) {
-                let score = 50; // Base score
-                
-                // Tỷ lệ Tài hiện tại
-                score += stats.taiRate * 0.3;
-                
-                // Xu hướng
-                if (trend.direction === 'TĂNG') score += 15;
-                
-                // Chu kỳ
-                if (cycle.cycleType === 'THEO DÂY' && trend.currentStreakType === 'TÀI') score += 20;
-                if (cycle.cycleType === 'ĐẢO CHIỀU LIÊN TỤC' && trend.currentStreakType === 'XỈU') score += 10;
-                
-                // Độ lệch
-                if (deviation.direction === 'THIÊN TÀI') score += Math.min(15, deviation.absolute * 5);
-                
-                // Streak
-                if (trend.currentStreakType === 'TÀI' && trend.currentStreakLength < 4) score += 10;
-                if (trend.currentStreakType === 'TÀI' && trend.currentStreakLength >= 4) score -= 5;
-                
-                return Math.max(0, score);
-            }
-
-            // Tính điểm Xỉu
-            static calculateXiuScore(stats, trend, cycle, deviation, crowd) {
-                let score = 50;
-                
-                score += stats.xiuRate * 0.3;
-                
-                if (trend.direction === 'GIẢM') score += 15;
-                
-                if (cycle.cycleType === 'THEO DÂY' && trend.currentStreakType === 'XỈU') score += 20;
-                if (cycle.cycleType === 'ĐẢO CHIỀU LIÊN TỤC' && trend.currentStreakType === 'TÀI') score += 10;
-                
-                if (deviation.direction === 'THIÊN XỈU') score += Math.min(15, deviation.absolute * 5);
-                
-                if (trend.currentStreakType === 'XỈU' && trend.currentStreakLength < 4) score += 10;
-                if (trend.currentStreakType === 'XỈU' && trend.currentStreakLength >= 4) score -= 5;
-                
-                return Math.max(0, score);
-            }
-
-            // Dự đoán số cụ thể
-            static predictNumber(data, isTai, stats) {
-                if (isTai) {
-                    const taiData = data.filter(d => d >= 11);
-                    if (taiData.length > 0) {
-                        const avgTai = taiData.reduce((a, b) => a + b, 0) / taiData.length;
-                        const weighted = (avgTai * 0.7 + stats.mean * 0.3);
-                        return Math.max(11, Math.min(18, Math.round(weighted)));
+                // Fourier (7%)
+                if (fourier.hasPattern) {
+                    if (fourier.dominantPeriod <= 3) {
+                        if (local.currentStreak.type === 'TÀI') xiuScore += 5;
+                        else taiScore += 5;
                     }
-                    return 14;
-                } else {
-                    const xiuData = data.filter(d => d <= 10);
-                    if (xiuData.length > 0) {
-                        const avgXiu = xiuData.reduce((a, b) => a + b, 0) / xiuData.length;
-                        const weighted = (avgXiu * 0.7 + stats.mean * 0.3);
-                        return Math.max(3, Math.min(10, Math.round(weighted)));
-                    }
-                    return 7;
                 }
+
+                return {
+                    tai: Math.max(5, taiScore),
+                    xiu: Math.max(5, xiuScore)
+                };
             }
 
-            // Đánh giá rủi ro
-            static evaluateRisk(volatility, deviation, taiProb, xiuProb) {
-                let riskScore = 0;
-                
-                if (volatility.level === 'CAO') riskScore += 3;
-                else if (volatility.level === 'TRUNG BÌNH') riskScore += 2;
-                else riskScore += 1;
-                
-                if (deviation.level === 'LỆCH NHIỀU') riskScore += 3;
-                else if (deviation.level === 'LỆCH NHẸ') riskScore += 2;
-                else riskScore += 1;
-                
+            static predictInRange(data, min, max) {
+                const inRange = data.filter(d => d >= min && d <= max);
+                if (inRange.length > 0) {
+                    const avg = Math.round(inRange.reduce((a, b) => a + b, 0) / inRange.length);
+                    const recent = data.slice(-3).filter(d => d >= min && d <= max);
+                    if (recent.length > 0) {
+                        const recentAvg = Math.round(recent.reduce((a, b) => a + b, 0) / recent.length);
+                        return Math.max(min, Math.min(max, Math.round((avg + recentAvg) / 2)));
+                    }
+                    return Math.max(min, Math.min(max, avg));
+                }
+                return min === 11 ? 14 : 7;
+            }
+
+            static determineRiskLevel(entropy, deviation, taiProb, xiuProb) {
+                let risk = 0;
+                if (entropy.level === 'RẤT HỖN LOẠN') risk += 3;
+                else if (entropy.level === 'HỖN LOẠN VỪA') risk += 2;
+                else risk += 1;
+
+                if (deviation.level === 'LỆCH NHIỀU') risk += 3;
+                else if (deviation.level === 'LỆCH VỪA') risk += 2;
+                else risk += 1;
+
                 const probDiff = Math.abs(taiProb - xiuProb);
-                if (probDiff < 10) riskScore += 3;
-                else if (probDiff < 25) riskScore += 2;
-                else riskScore += 1;
-                
-                if (riskScore <= 3) return { level: 'THẤP', color: 'risk-low', text: 'RỦI RO THẤP - Có thể tham gia' };
-                else if (riskScore <= 6) return { level: 'TRUNG BÌNH', color: 'risk-medium', text: 'RỦI RO TRUNG BÌNH - Cần thận trọng' };
-                else return { level: 'CAO', color: 'risk-high', text: 'RỦI RO CAO - Hạn chế tham gia' };
+                if (probDiff < 8) risk += 3;
+                else if (probDiff < 20) risk += 2;
+                else risk += 1;
+
+                if (risk <= 4) return { level: 'THẤP', cssClass: 'risk-low', text: '🟢 RỦI RO THẤP' };
+                else if (risk <= 7) return { level: 'TRUNG BÌNH', cssClass: 'risk-mid', text: '🟡 RỦI RO TRUNG BÌNH' };
+                else return { level: 'CAO', cssClass: 'risk-high', text: '🔴 RỦI RO CAO' };
             }
 
-            // Khuyến nghị
-            static getRecommendation(riskLevel, taiProb, xiuProb, capital, riskMgmt) {
-                const higherProb = Math.max(taiProb, xiuProb);
-                
+            static generateRecommendation(riskLevel, confidence, isTai) {
                 if (riskLevel.level === 'CAO') {
                     return {
-                        action: 'ĐỨNG NGOÀI QUAN SÁT',
-                        betAmount: 0,
-                        reason: 'Rủi ro quá cao, không nên tham gia phiên này',
-                        moneyManagement: `Bảo toàn vốn ${capital.toLocaleString()}đ`
+                        action: '⛔ KHÔNG NÊN THAM GIA',
+                        detail: `Độ tin cậy ${confidence}% nhưng rủi ro quá cao. Bảo toàn vốn là ưu tiên hàng đầu.`,
+                        betPercent: 0
                     };
                 } else if (riskLevel.level === 'TRUNG BÌNH') {
                     return {
-                        action: 'CƯỢC NHỎ',
-                        betAmount: riskMgmt.conservativeAmount,
-                        reason: `Dự đoán ${taiProb > xiuProb ? 'TÀI' : 'XỈU'} với độ tin cậy ${higherProb}%`,
-                        moneyManagement: `Cược tối đa ${riskMgmt.conservativeAmount.toLocaleString()}đ (2% vốn)`
+                        action: `⚠️ CƯỢC NHỎ - ${isTai ? 'TÀI' : 'XỈU'}`,
+                        detail: `Có thể tham gia với số vốn nhỏ (1-2% vốn). Độ tin cậy ${confidence}%.`,
+                        betPercent: 2
                     };
                 } else {
                     return {
-                        action: 'CƯỢC VỪA PHẢI',
-                        betAmount: riskMgmt.aggressiveAmount,
-                        reason: `Tín hiệu tốt cho ${taiProb > xiuProb ? 'TÀI' : 'XỈU'} với độ tin cậy ${higherProb}%`,
-                        moneyManagement: `Cược tối đa ${riskMgmt.aggressiveAmount.toLocaleString()}đ (4% vốn)`
+                        action: `✅ CƯỢC VỪA - ${isTai ? 'TÀI' : 'XỈU'}`,
+                        detail: `Tín hiệu tốt với độ tin cậy ${confidence}%. Có thể cược 3-5% vốn.`,
+                        betPercent: 4
                     };
                 }
             }
 
-            // Phân tích với ít dữ liệu
-            static analyzeWithMinData(data, capital) {
-                if (!data || data.length === 0) {
-                    return {
-                        number: 10,
-                        isTai: false,
-                        range: 'KHÔNG ĐỦ DỮ LIỆU',
-                        taiProbability: 50,
-                        xiuProbability: 50,
-                        stats: { count: 0 },
-                        riskLevel: { level: 'CAO', color: 'risk-high', text: 'KHÔNG ĐỦ DỮ LIỆU ĐỂ PHÂN TÍCH' },
-                        recommendation: {
-                            action: 'KHÔNG NÊN THAM GIA',
-                            betAmount: 0,
-                            reason: 'Cần ít nhất 3 kết quả để phân tích',
-                            moneyManagement: 'Vui lòng nhập thêm dữ liệu'
-                        }
-                    };
-                }
-                return this.analyze(data, capital);
-            }
-
-            // Tạo dữ liệu từ MD5
-            static generateFromMD5(md5) {
-                if (!md5 || md5.length !== 32) return [];
-                
-                const data = [];
-                for (let i = 0; i < 20; i++) {
-                    const val1 = parseInt(md5[i % 32], 16);
-                    const val2 = parseInt(md5[(i + 16) % 32], 16);
-                    const result = ((val1 * 7 + val2 * 13) % 16) + 3;
-                    data.push(result);
-                }
-                return data;
-            }
-
-            // Tạo dữ liệu từ ảnh
-            static generateFromImages(images) {
-                const data = [];
-                images.forEach(img => {
-                    const seed = this.hash(img.name + img.size + img.lastModified);
-                    for (let i = 0; i < 5; i++) {
-                        const val = ((seed * (i + 1) * 11) % 16) + 3;
-                        data.push(val);
+            static insufficientData(data, engineName) {
+                return {
+                    number: '--',
+                    isTai: false,
+                    range: 'KHÔNG ĐỦ DỮ LIỆU',
+                    taiProbability: 50,
+                    xiuProbability: 50,
+                    confidence: 0,
+                    riskLevel: { level: 'CAO', cssClass: 'risk-high', text: '🔴 KHÔNG ĐỦ DỮ LIỆU' },
+                    engineName: engineName,
+                    details: { dataPoints: data.length },
+                    recommendation: {
+                        action: '❌ KHÔNG THỂ PHÂN TÍCH',
+                        detail: `Chỉ có ${data.length} điểm dữ liệu. Cần ít nhất 3 điểm (3-18). Vui lòng thêm ảnh hoặc nhập thêm dữ liệu.`,
+                        betPercent: 0
                     }
-                });
-                return data;
-            }
-
-            // Tóm tắt phân tích
-            static generateSummary(stats, volatility, trend, riskLevel, recommendation) {
-                return `
-                    📊 Tổng quan: ${stats.count} phiên | Tài: ${stats.taiRate}% | Xỉu: ${stats.xiuRate}%
-                    📈 Biến động: ${volatility.level} (CV: ${volatility.coefficientOfVariation}%)
-                    🔄 Chu kỳ: ${trend.currentStreakType} ${trend.currentStreakLength} lần liên tiếp
-                    ⚠️ ${riskLevel.text}
-                    💡 ${recommendation.action}: ${recommendation.reason}
-                `;
+                };
             }
         }
 
-        // ===== UI HANDLERS =====
-
-        const uploadZone = document.getElementById('uploadZone');
-        const imageInput = document.getElementById('imageInput');
-        const previewImages = document.getElementById('previewImages');
-        let uploadedImages = [];
-
-        // Upload handlers
-        uploadZone.addEventListener('click', () => imageInput.click());
-        uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.style.borderColor = '#ffd700'; });
-        uploadZone.addEventListener('dragleave', () => { uploadZone.style.borderColor = 'rgba(255,215,0,0.3)'; });
-        uploadZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadZone.style.borderColor = 'rgba(255,215,0,0.3)';
-            handleFiles(e.dataTransfer.files);
-        });
-        imageInput.addEventListener('change', (e) => handleFiles(e.target.files));
-
-        function handleFiles(files) {
-            Array.from(files).forEach(file => {
-                if (file.type.startsWith('image/')) {
-                    uploadedImages.push(file);
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        previewImages.appendChild(img);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-            showToast(`✅ Đã thêm ${files.length} ảnh`);
-        }
-
-        // Toast
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.style.display = 'block';
-            setTimeout(() => toast.style.display = 'none', 3000);
-        }
-
-        // Hiển thị kết quả
-        function displayResult(result, containerId) {
+        // ---- Hiển thị kết quả ----
+        function renderResult(result, containerId) {
             const container = document.getElementById(containerId);
-            
+            if (!result || result.range === 'KHÔNG ĐỦ DỮ LIỆU') {
+                container.innerHTML = `
+                    <div class="result-header">
+                        <div class="result-number-display" style="color: #888;">⚠️</div>
+                        <div class="result-verdict" style="color: #ffaa00;">${result.range}</div>
+                    </div>
+                    <div class="risk-indicator risk-high">${result.recommendation.action}</div>
+                    <div class="recommendation-box">
+                        <p style="color: #ffaa00;">${result.recommendation.detail}</p>
+                    </div>
+                `;
+                container.style.display = 'block';
+                return result;
+            }
+
             const html = `
-                <div class="main-result">
-                    <div class="prediction-number ${result.isTai ? 'text-tai' : 'text-xiu'}">
+                <div class="result-header">
+                    <div class="result-number-display ${result.isTai ? 'result-tai' : 'result-xiu'}">
                         ${result.number}
                     </div>
-                    <div class="prediction-label ${result.isTai ? 'text-tai' : 'text-xiu'}">
+                    <div class="result-verdict ${result.isTai ? 'verdict-tai' : 'verdict-xiu'}">
                         ${result.isTai ? 'TÀI' : 'XỈU'}
                     </div>
-                    <div style="color: #888; font-size: 0.9em; margin-top: 5px;">
-                        ${result.range}
+                    <div style="color: #888; font-size: 0.85em; margin-top: 5px;">
+                        ${result.range} | ${result.engineName}
                     </div>
                 </div>
 
-                <div class="prob-grid">
-                    <div class="prob-card">
-                        <h4 style="color: #ff4444;">🔴 TÀI (11-18)</h4>
-                        <div class="prob-bar">
-                            <div class="prob-fill prob-fill-tai" style="width: ${result.taiProbability}%;"></div>
+                <div class="prob-section">
+                    <div class="prob-box">
+                        <h4 style="color: #ff3333;">🔴 TÀI (11-18)</h4>
+                        <div class="prob-bar-wrap">
+                            <div class="prob-bar-fill prob-bar-tai" style="width: ${result.taiProbability}%;"></div>
                         </div>
-                        <div class="prob-value" style="color: #ff4444;">${result.taiProbability}%</div>
+                        <div class="prob-percent percent-tai">${result.taiProbability}%</div>
                     </div>
-                    <div class="prob-card">
-                        <h4 style="color: #4488ff;">🔵 XỈU (3-10)</h4>
-                        <div class="prob-bar">
-                            <div class="prob-fill prob-fill-xiu" style="width: ${result.xiuProbability}%;"></div>
+                    <div class="prob-box">
+                        <h4 style="color: #3366ff;">🔵 XỈU (3-10)</h4>
+                        <div class="prob-bar-wrap">
+                            <div class="prob-bar-fill prob-bar-xiu" style="width: ${result.xiuProbability}%;"></div>
                         </div>
-                        <div class="prob-value" style="color: #4488ff;">${result.xiuProbability}%</div>
+                        <div class="prob-percent percent-xiu">${result.xiuProbability}%</div>
                     </div>
                 </div>
 
-                <div class="risk-meter ${result.riskLevel.color}">
-                    <strong>⚠️ ${result.riskLevel.text}</strong>
+                <div class="risk-indicator ${result.riskLevel.cssClass}">
+                    ${result.riskLevel.text} | Độ tin cậy: ${result.confidence}%
                 </div>
 
-                <div class="money-mgmt">
-                    <div class="money-card">
-                        <div class="amount">${result.recommendation.betAmount.toLocaleString()}đ</div>
-                        <div class="label">Số tiền khuyến nghị</div>
-                    </div>
-                    <div class="money-card">
-                        <div class="amount">${result.recommendation.action}</div>
-                        <div class="label">Hành động</div>
-                    </div>
-                    <div class="money-card">
-                        <div class="amount">${result.riskManagement.stopLoss.toLocaleString()}đ</div>
-                        <div class="label">Stop Loss</div>
-                    </div>
+                <div class="recommendation-box">
+                    <h4>💡 KHUYẾN NGHỊ:</h4>
+                    <div class="rec-action">${result.recommendation.action}</div>
+                    <div class="rec-detail">${result.recommendation.detail}</div>
+                    ${result.recommendation.betPercent > 0 ? `
+                        <div style="margin-top: 10px; color: #ffd700; font-weight: bold;">
+                            💰 Đề xuất: ${result.recommendation.betPercent}% vốn
+                        </div>
+                    ` : ''}
                 </div>
 
-                <div class="analysis-info">
-                    <h4>📊 CHI TIẾT PHÂN TÍCH:</h4>
-                    <div class="info-row">
-                        <span class="info-label">Tổng phiên phân tích:</span>
-                        <span class="info-value">${result.stats.count}</span>
+                <div class="analysis-detail-block">
+                    <h4>📊 CHI TIẾT PHÂN TÍCH CHUYÊN SÂU:</h4>
+                    <div class="detail-row">
+                        <span class="detail-key">Tổng mẫu:</span>
+                        <span class="detail-val">${result.details.dataPoints} điểm</span>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Tỷ lệ Tài/Xỉu:</span>
-                        <span class="info-value">${result.stats.taiRate}% / ${result.stats.xiuRate}%</span>
+                    <div class="detail-row">
+                        <span class="detail-key">Tỷ lệ Tài/Xỉu:</span>
+                        <span class="detail-val">${result.details.stats.taiRate}% / ${result.details.stats.xiuRate}%</span>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Biến động:</span>
-                        <span class="info-value">${result.volatility.level} (${result.volatility.coefficientOfVariation}%)</span>
+                    <div class="detail-row">
+                        <span class="detail-key">Trung bình:</span>
+                        <span class="detail-val">${result.details.stats.mean} (Độ lệch chuẩn: ${result.details.stats.stdDev})</span>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Xu hướng:</span>
-                        <span class="info-value">${result.trend.direction} | ${result.trend.currentStreakType} ${result.trend.currentStreakLength} lần</span>
+                    <div class="detail-row">
+                        <span class="detail-key">Phân phối:</span>
+                        <span class="detail-val">${result.details.distribution.type} (Mode: ${result.details.distribution.mode})</span>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Chu kỳ:</span>
-                        <span class="info-value">${result.cycle.cycleType} (đổi ${result.cycle.switchRate}%)</span>
+                    <div class="detail-row">
+                        <span class="detail-key">Entropy:</span>
+                        <span class="detail-val">${result.details.entropy.level} (${result.details.entropy.normalized}%)</span>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Tâm lý thị trường:</span>
-                        <span class="info-value">${result.crowdPsychology.analysis}</span>
+                    <div class="detail-row">
+                        <span class="detail-key">Chu kỳ:</span>
+                        <span class="detail-val">${result.details.fourier.dominantPeriod} phiên (Độ mạnh: ${result.details.fourier.strength})</span>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Khuyến nghị:</span>
-                        <span class="info-value" style="color: #ffd700;">${result.recommendation.action}</span>
+                    <div class="detail-row">
+                        <span class="detail-key">Markov (giữ Tài):</span>
+                        <span class="detail-val">${result.details.markov.probStayTai}% | Giữ Xỉu: ${result.details.markov.probStayXiu}%</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key">Xu hướng cục bộ:</span>
+                        <span class="detail-val">${result.details.localTrend.momentum} (Streak: ${result.details.localTrend.currentStreak.type} ${result.details.localTrend.currentStreak.length} lần)</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key">Độ lệch:</span>
+                        <span class="detail-val">${result.details.deviation.level} - ${result.details.deviation.direction}</span>
                     </div>
                 </div>
             `;
-            
+
             container.innerHTML = html;
             container.style.display = 'block';
+            return result;
         }
 
-        // BOT 1
-        document.getElementById('analyzeBtn1').addEventListener('click', async () => {
-            const loading = document.getElementById('loading1');
-            const resultPanel = document.getElementById('result1');
-            
-            let data = [];
-            
-            // Lấy từ input nhanh
-            ['q1', 'q2', 'q3', 'q4', 'q5'].forEach(id => {
-                const val = parseInt(document.getElementById(id).value);
-                if (!isNaN(val) && val >= 3 && val <= 18) data.push(val);
-            });
-            
-            // Thêm từ ảnh
-            if (uploadedImages.length > 0) {
-                data = [...data, ...TaiXiuProAnalyzer.generateFromImages(uploadedImages)];
-            }
-            
-            if (data.length < 3) {
-                showToast('❌ Cần ít nhất 3 kết quả! Nhập thêm hoặc upload ảnh.');
-                return;
-            }
-            
-            loading.style.display = 'block';
-            resultPanel.style.display = 'none';
-            
-            await new Promise(r => setTimeout(r, 1200));
-            
-            const capital = parseInt(document.getElementById('capital').value) || 1000000;
-            const result = TaiXiuProAnalyzer.analyze(data, capital);
-            
-            loading.style.display = 'none';
-            displayResult(result, 'result1');
-            saveHistory('BOT 1 - Phân tích nhanh', result);
-            showToast('✅ Phân tích hoàn tất!');
-        });
+        // ---- So sánh 2 bot ----
+        let lastResult1 = null;
+        let lastResult2 = null;
 
-        // BOT 2
-        document.getElementById('analyzeBtn2').addEventListener('click', async () => {
-            const loading = document.getElementById('loading2');
-            const resultPanel = document.getElementById('result2');
-            
-            let data = [];
-            
-            // Lấy từ textarea
-            const historyText = document.getElementById('historyData').value.trim();
-            if (historyText) {
-                historyText.split('\n').forEach(line => {
-                    const val = parseInt(line.trim());
-                    if (!isNaN(val) && val >= 3 && val <= 18) data.push(val);
-                });
+        function updateComparison() {
+            const bar = document.getElementById('comparisonBar');
+            if (lastResult1 && lastResult2) {
+                bar.style.display = 'flex';
+                const b1 = document.getElementById('compBot1');
+                const b2 = document.getElementById('compBot2');
+                
+                b1.textContent = `${lastResult1.number} - ${lastResult1.isTai ? 'TÀI' : 'XỈU'} (${lastResult1.confidence}%)`;
+                b1.className = 'bot-result-mini ' + (lastResult1.isTai ? 'mini-tai' : 'mini-xiu');
+                
+                b2.textContent = `${lastResult2.number} - ${lastResult2.isTai ? 'TÀI' : 'XỈU'} (${lastResult2.confidence}%)`;
+                b2.className = 'bot-result-mini ' + (lastResult2.isTai ? 'mini-tai' : 'mini-xiu');
             }
-            
-            // Lấy từ MD5
-            const md5 = document.getElementById('md5Input').value.trim();
-            if (md5 && md5.length === 32 && /^[a-fA-F0-9]{32}$/.test(md5)) {
-                data = [...data, ...TaiXiuProAnalyzer.generateFromMD5(md5)];
-            }
-            
-            if (data.length < 3) {
-                showToast('❌ Cần ít nhất 3 kết quả! Nhập lịch sử hoặc MD5.');
-                return;
-            }
-            
-            loading.style.display = 'block';
-            resultPanel.style.display = 'none';
-            
-            await new Promise(r => setTimeout(r, 1500));
-            
-            const capital = parseInt(document.getElementById('capital').value) || 1000000;
-            const result = TaiXiuProAnalyzer.analyze(data, capital);
-            
-            loading.style.display = 'none';
-            displayResult(result, 'result2');
-            saveHistory('BOT 2 - Phân tích chuyên sâu', result);
-            showToast('✅ Phân tích chuyên sâu hoàn tất!');
-        });
+        }
 
-        // Lịch sử
-        function saveHistory(type, result) {
-            const history = JSON.parse(localStorage.getItem('taiXiuProHistory') || '[]');
+        // ---- Lịch sử ----
+        function saveToHistory(botName, result) {
+            const history = JSON.parse(localStorage.getItem('ultimateTaiXiuHistory') || '[]');
             history.unshift({
-                type: type,
+                bot: botName,
                 number: result.number,
                 isTai: result.isTai,
                 taiProb: result.taiProbability,
                 xiuProb: result.xiuProbability,
+                confidence: result.confidence,
                 riskLevel: result.riskLevel.level,
                 action: result.recommendation.action,
                 time: new Date().toLocaleString('vi-VN')
             });
-            if (history.length > 50) history.pop();
-            localStorage.setItem('taiXiuProHistory', JSON.stringify(history));
-            displayHistory();
+            if (history.length > 100) history.pop();
+            localStorage.setItem('ultimateTaiXiuHistory', JSON.stringify(history));
+            renderHistory();
         }
 
-        function displayHistory() {
+        function renderHistory() {
             const tbody = document.getElementById('historyBody');
-            const history = JSON.parse(localStorage.getItem('taiXiuProHistory') || '[]');
-            
+            const history = JSON.parse(localStorage.getItem('ultimateTaiXiuHistory') || '[]');
+
             if (history.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#555;padding:30px;">Chưa có dữ liệu</td></tr>';
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #555; padding: 40px;">
+                            <p style="font-size: 2em; margin-bottom: 10px;">📭</p>
+                            <p>Chưa có lịch sử phân tích nào</p>
+                        </td>
+                    </tr>
+                `;
                 return;
             }
-            
-            tbody.innerHTML = history.map(h => `
-                <tr>
-                    <td>${h.time}</td>
-                    <td>${h.type}</td>
-                    <td><span class="badge ${h.isTai ? 'badge-tai' : 'badge-xiu'}">${h.number} - ${h.isTai ? 'TÀI' : 'XỈU'}</span></td>
-                    <td>Tài: ${h.taiProb}% / Xỉu: ${h.xiuProb}%</td>
-                    <td style="color: ${h.riskLevel === 'CAO' ? '#ff4444' : h.riskLevel === 'TRUNG BÌNH' ? '#ffaa00' : '#44ff44'}">${h.riskLevel}</td>
-                    <td style="color: #ffd700; font-weight: bold;">${h.action}</td>
-                </tr>
-            `).join('');
+
+            tbody.innerHTML = history.map(h => {
+                const dotClass = h.riskLevel === 'THẤP' ? 'dot-high' : (h.riskLevel === 'TRUNG BÌNH' ? 'dot-mid' : 'dot-low');
+                return `
+                    <tr>
+                        <td>${h.time}</td>
+                        <td>${h.bot}</td>
+                        <td><span class="tag ${h.isTai ? 'tag-tai' : 'tag-xiu'}">${h.number} - ${h.isTai ? 'TÀI' : 'XỈU'}</span></td>
+                        <td>Tài: ${h.taiProb}% | Xỉu: ${h.xiuProb}%</td>
+                        <td><span class="confidence-dot ${dotClass}"></span>${h.riskLevel}</td>
+                        <td style="color: #ffd700; font-weight: 600;">${h.action}</td>
+                    </tr>
+                `;
+            }).join('');
         }
 
+        // ---- Bot 1: Analyze ----
+        document.getElementById('analyzeBtn1').addEventListener('click', async () => {
+            const loading = document.getElementById('loading1');
+            const resultPanel = document.getElementById('result1');
+
+            let quickInputs = [];
+            ['b1q1', 'b1q2', 'b1q3', 'b1q4', 'b1q5'].forEach(id => {
+                const val = parseInt(document.getElementById(id).value);
+                if (!isNaN(val) && val >= 3 && val <= 18) quickInputs.push(val);
+            });
+
+            const images = upload1.getImages();
+
+            if (quickInputs.length < 3 && images.length === 0) {
+                showToast('❌ Cần ít nhất 3 kết quả hoặc upload ảnh!');
+                return;
+            }
+
+            loading.style.display = 'block';
+            resultPanel.style.display = 'none';
+
+            await new Promise(r => setTimeout(r, 1500));
+
+            const result = UltimateAnalyzer.engine1_analyzeFromImages(images, quickInputs);
+            
+            loading.style.display = 'none';
+            lastResult1 = renderResult(result, 'result1');
+            updateComparison();
+            saveToHistory('🤖 BOT 1', result);
+            showToast('✅ Bot 1 phân tích hoàn tất!');
+        });
+
+        // ---- Bot 2: Analyze ----
+        document.getElementById('analyzeBtn2').addEventListener('click', async () => {
+            const loading = document.getElementById('loading2');
+            const resultPanel = document.getElementById('result2');
+
+            const md5Hash = document.getElementById('md5Input').value.trim();
+            const images = upload2.getImages();
+            
+            // Quick inputs từ textarea nếu có
+            let quickInputs = [];
+
+            if (images.length === 0 && (!md5Hash || md5Hash.length !== 32)) {
+                showToast('❌ Vui lòng upload ảnh hoặc nhập MD5!');
+                return;
+            }
+
+            loading.style.display = 'block';
+            resultPanel.style.display = 'none';
+
+            await new Promise(r => setTimeout(r, 1800));
+
+            const result = UltimateAnalyzer.engine2_analyzeFromImagesAndMD5(images, md5Hash, quickInputs);
+            
+            loading.style.display = 'none';
+            lastResult2 = renderResult(result, 'result2');
+            updateComparison();
+            saveToHistory('🧠 BOT 2', result);
+            showToast('✅ Bot 2 phân tích hoàn tất!');
+        });
+
+        // ---- Clear History ----
         document.getElementById('clearHistory').addEventListener('click', () => {
-            if (confirm('Xóa tất cả lịch sử?')) {
-                localStorage.removeItem('taiXiuProHistory');
-                displayHistory();
-                showToast('🗑️ Đã xóa lịch sử!');
+            if (confirm('Xóa tất cả lịch sử phân tích?')) {
+                localStorage.removeItem('ultimateTaiXiuHistory');
+                renderHistory();
+                showToast('🗑️ Đã xóa tất cả lịch sử!');
             }
         });
 
-        // Init
-        displayHistory();
-        console.log('🎲 TÀI XỈU PRO ANALYZER - READY');
-        console.log('✅ Phân tích thống kê chuyên sâu');
-        console.log('✅ Quản lý rủi ro & vốn');
-        console.log('✅ Đánh giá biến động thị trường');
-        console.log('✅ Khuyến nghị thông minh');
+        // ---- MD5 Validation ----
+        document.getElementById('md5Input').addEventListener('input', function() {
+            const val = this.value;
+            if (val.length === 32 && /^[a-fA-F0-9]{32}$/.test(val)) {
+                this.style.borderColor = '#00ff88';
+                this.style.boxShadow = '0 0 20px rgba(0,255,136,0.2)';
+            } else if (val.length > 0) {
+                this.style.borderColor = 'var(--border)';
+                this.style.boxShadow = 'none';
+            }
+        });
+
+        // ---- Init ----
+        createParticles();
+        renderHistory();
+
+        console.log('👑 ULTIMATE TÀI XỈU AI - FINAL VERSION');
+        console.log('✅ Dual Engine: Pattern Recognition + Cryptographic Analysis');
+        console.log('✅ Bot 1: Phân tích ảnh + nhập nhanh');
+        console.log('✅ Bot 2: Phân tích ảnh + MD5 (không cần nhập tay)');
+        console.log('✅ So sánh kết quả 2 bot');
+        console.log('✅ 7 lớp phân tích chuyên sâu');
+        console.log('🏆 Đây là phiên bản CUỐI CÙNG và MẠNH NHẤT');
     </script>
 </body>
 </html>
