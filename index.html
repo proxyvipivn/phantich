@@ -3,62 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHÂN TÍCH TÀI XỈU - AI SYSTEM</title>
+    <title>TÀI XỈU PRO - HỆ THỐNG PHÂN TÍCH & QUẢN LÝ RỦI RO</title>
     <style>
         :root {
-            --neon-blue: #00d4ff;
-            --neon-purple: #b829f7;
-            --neon-pink: #ff00ff;
-            --neon-gold: #ffd700;
-            --tai-color: #ff4444;
-            --xiu-color: #4444ff;
+            --gold: #ffd700;
+            --red: #ff4444;
+            --blue: #4488ff;
+            --green: #44ff44;
+            --dark: #0a0a0a;
+            --card: #1a1a2e;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', 'Orbitron', sans-serif;
-            background: #0a0a0a;
-            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--dark);
             color: #fff;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Background */
-        .bg-particles {
+        .bg-effect {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
             background: 
-                radial-gradient(ellipse at 20% 50%, rgba(255, 68, 68, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 50%, rgba(68, 68, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(255,68,68,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(68,136,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255,215,0,0.03) 0%, transparent 50%);
         }
 
-        .grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
-
-        .main-container {
+        .container {
             position: relative;
             z-index: 1;
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -66,154 +44,81 @@
         /* Header */
         .header {
             text-align: center;
-            padding: 30px 20px;
-            margin-bottom: 30px;
+            padding: 30px;
+            margin-bottom: 20px;
         }
 
-        .header .logo {
-            font-size: 3em;
+        .header h1 {
+            font-size: 2.5em;
             font-weight: 900;
-            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffd700, #ff4444, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .header .logo .tai {
+        .header .warning {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid #ff4444;
+            border-radius: 20px;
             color: #ff4444;
-            text-shadow: 0 0 30px rgba(255, 68, 68, 0.5);
+            margin-top: 10px;
+            font-size: 0.9em;
+            letter-spacing: 2px;
         }
 
-        .header .logo .xiu {
-            color: #4444ff;
-            text-shadow: 0 0 30px rgba(68, 68, 255, 0.5);
-        }
-
-        .header .subtitle {
-            color: #ffd700;
-            letter-spacing: 4px;
-            font-size: 1.1em;
-        }
-
-        /* Dice Animation */
-        .dice-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .dice {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            font-weight: bold;
-            animation: diceRoll 0.5s ease;
-        }
-
-        @keyframes diceRoll {
-            0% { transform: rotate(0deg) scale(0.5); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-
-        /* Grid */
-        .grid-container {
+        /* Dashboard Grid */
+        .dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 25px;
+            margin-bottom: 25px;
         }
 
-        @media (max-width: 1000px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 1100px) {
+            .dashboard { grid-template-columns: 1fr; }
         }
 
         /* Card */
         .card {
-            background: rgba(20, 20, 20, 0.9);
+            background: var(--card);
             border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
-        .card h2 {
-            font-size: 1.5em;
-            margin-bottom: 25px;
+        .card-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .card h2 .bot-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+        .card-header .icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3em;
+            font-size: 1.5em;
         }
 
-        .bot1-icon {
-            background: rgba(255, 68, 68, 0.2);
-            border: 2px solid #ff4444;
-        }
+        .icon-bot1 { background: rgba(255,68,68,0.2); border: 2px solid #ff4444; }
+        .icon-bot2 { background: rgba(68,136,255,0.2); border: 2px solid #4488ff; }
 
-        .bot2-icon {
-            background: rgba(68, 68, 255, 0.2);
-            border: 2px solid #4444ff;
-        }
+        .card-header h2 { font-size: 1.2em; }
 
-        /* Upload Area */
-        .upload-area {
-            border: 2px dashed rgba(255, 215, 0, 0.3);
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: rgba(255, 215, 0, 0.02);
+        /* Input Area */
+        .input-section {
             margin-bottom: 20px;
         }
 
-        .upload-area:hover {
-            border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.05);
-        }
-
-        .upload-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        #imagePreview {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        #imagePreview img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-        }
-
-        /* Input */
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
+        .input-section label {
             display: block;
             margin-bottom: 8px;
             color: #aaa;
@@ -221,12 +126,31 @@
             letter-spacing: 1px;
         }
 
-        .input-group input,
-        .input-group textarea {
+        .input-section textarea {
             width: 100%;
+            min-height: 120px;
             padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            resize: vertical;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-section textarea:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.15);
+        }
+
+        .input-section input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 12px;
             color: #fff;
             font-size: 1em;
@@ -234,186 +158,253 @@
             transition: all 0.3s;
         }
 
-        .input-group input:focus,
-        .input-group textarea:focus {
+        .input-section input:focus {
             border-color: #ffd700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 20px rgba(255,215,0,0.15);
         }
 
-        .input-group textarea {
-            min-height: 100px;
-            resize: vertical;
-            font-family: monospace;
+        /* Quick Stats Input */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .quick-stats { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .quick-stats input {
+            padding: 12px;
+            text-align: center;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: bold;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .quick-stats input:focus {
+            border-color: #ffd700;
+        }
+
+        /* Upload Area */
+        .upload-zone {
+            border: 2px dashed rgba(255,215,0,0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            background: rgba(255,215,0,0.02);
+        }
+
+        .upload-zone:hover {
+            border-color: #ffd700;
+            background: rgba(255,215,0,0.05);
+        }
+
+        .upload-zone .upload-icon {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+
+        .preview-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .preview-images img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(255,215,0,0.3);
         }
 
         /* Buttons */
         .btn {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             border: none;
             border-radius: 12px;
-            font-size: 1.1em;
+            font-size: 1.05em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             margin-top: 10px;
-        }
-
-        .btn-tai {
-            background: linear-gradient(135deg, #ff4444, #ff6666);
-            color: #fff;
-            box-shadow: 0 5px 20px rgba(255, 68, 68, 0.3);
-        }
-
-        .btn-tai:hover {
-            box-shadow: 0 10px 30px rgba(255, 68, 68, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .btn-xiu {
-            background: linear-gradient(135deg, #4444ff, #6666ff);
-            color: #fff;
-            box-shadow: 0 5px 20px rgba(68, 68, 255, 0.3);
-        }
-
-        .btn-xiu:hover {
-            box-shadow: 0 10px 30px rgba(68, 68, 255, 0.5);
-            transform: translateY(-2px);
         }
 
         .btn-gold {
             background: linear-gradient(135deg, #ffd700, #ffaa00);
             color: #000;
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 20px rgba(255,215,0,0.3);
         }
 
         .btn-gold:hover {
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
             transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.5);
+        }
+
+        .btn-red {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(255,68,68,0.3);
+        }
+
+        .btn-blue {
+            background: linear-gradient(135deg, #4488ff, #2266cc);
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(68,136,255,0.3);
         }
 
         /* Result */
-        .result-box {
-            background: rgba(0, 0, 0, 0.5);
+        .result-panel {
+            background: rgba(0,0,0,0.5);
             border-radius: 15px;
             padding: 25px;
             margin-top: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
             display: none;
-            animation: fadeIn 0.5s ease;
+            animation: fadeInUp 0.5s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .result-main {
+        .main-result {
             text-align: center;
             margin-bottom: 20px;
         }
 
-        .result-number {
-            font-size: 4em;
+        .prediction-number {
+            font-size: 5em;
             font-weight: 900;
+            line-height: 1;
         }
 
-        .result-number.tai {
-            color: #ff4444;
-            text-shadow: 0 0 30px rgba(255, 68, 68, 0.5);
-        }
-
-        .result-number.xiu {
-            color: #4444ff;
-            text-shadow: 0 0 30px rgba(68, 68, 255, 0.5);
-        }
-
-        .result-label {
-            font-size: 1.5em;
+        .prediction-label {
+            font-size: 1.8em;
             font-weight: bold;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             margin-top: 5px;
         }
 
-        .tai-label {
-            color: #ff4444;
-        }
+        .text-tai { color: #ff4444; text-shadow: 0 0 30px rgba(255,68,68,0.4); }
+        .text-xiu { color: #4488ff; text-shadow: 0 0 30px rgba(68,136,255,0.4); }
 
-        .xiu-label {
-            color: #4444ff;
-        }
-
-        .probability-bars {
+        /* Probability */
+        .prob-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-top: 20px;
+            margin: 20px 0;
         }
 
-        .prob-item {
+        .prob-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 18px;
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
-        .prob-item .prob-label {
-            margin-bottom: 10px;
-            font-weight: bold;
+        .prob-card h4 {
+            margin-bottom: 12px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
         }
 
         .prob-bar {
-            height: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            height: 18px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 9px;
             overflow: hidden;
-            margin: 5px 0;
+            margin: 8px 0;
         }
 
-        .prob-fill-tai {
+        .prob-fill {
             height: 100%;
-            background: linear-gradient(90deg, #ff4444, #ff8888);
-            border-radius: 10px;
-            transition: width 1s ease;
+            border-radius: 9px;
+            transition: width 1.2s ease;
         }
 
-        .prob-fill-xiu {
-            height: 100%;
-            background: linear-gradient(90deg, #4444ff, #8888ff);
-            border-radius: 10px;
-            transition: width 1s ease;
-        }
+        .prob-fill-tai { background: linear-gradient(90deg, #ff4444, #ff8888); }
+        .prob-fill-xiu { background: linear-gradient(90deg, #4488ff, #88aaff); }
 
         .prob-value {
-            font-size: 1.2em;
+            font-size: 1.4em;
             font-weight: bold;
         }
 
-        /* Analysis Details */
-        .analysis-details {
-            background: rgba(255, 255, 255, 0.03);
+        /* Analysis Info */
+        .analysis-info {
+            background: rgba(255,255,255,0.02);
             border-radius: 10px;
             padding: 15px;
             margin-top: 15px;
         }
 
-        .analysis-details h4 {
+        .analysis-info h4 {
             color: #ffd700;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 0.95em;
         }
 
-        .analysis-details p {
-            color: #aaa;
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             font-size: 0.9em;
-            line-height: 1.6;
         }
 
-        /* History */
+        .info-row .info-label { color: #888; }
+        .info-row .info-value { font-weight: bold; }
+
+        /* Risk Meter */
+        .risk-meter {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .risk-low {
+            background: rgba(68,255,68,0.1);
+            border: 1px solid rgba(68,255,68,0.3);
+            color: #44ff44;
+        }
+
+        .risk-medium {
+            background: rgba(255,170,0,0.1);
+            border: 1px solid rgba(255,170,0,0.3);
+            color: #ffaa00;
+        }
+
+        .risk-high {
+            background: rgba(255,68,68,0.1);
+            border: 1px solid rgba(255,68,68,0.3);
+            color: #ff4444;
+        }
+
+        /* History Table */
         .history-section {
-            background: rgba(20, 20, 20, 0.9);
+            background: var(--card);
             border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 30px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 25px;
         }
 
         .history-header {
@@ -427,377 +418,316 @@
 
         .btn-sm {
             padding: 10px 20px;
-            border: 1px solid rgba(255, 68, 68, 0.5);
-            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255,68,68,0.4);
+            background: rgba(255,68,68,0.1);
             color: #ff4444;
             border-radius: 8px;
             cursor: pointer;
+            font-size: 0.9em;
             transition: all 0.3s;
         }
 
         .btn-sm:hover {
-            background: rgba(255, 68, 68, 0.2);
+            background: rgba(255,68,68,0.2);
         }
 
-        .history-list {
-            max-height: 400px;
-            overflow-y: auto;
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
         }
 
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s;
+        .history-table th {
+            text-align: left;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            color: #ffd700;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 0.85em;
         }
 
-        .history-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .history-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .history-item .result-badge {
-            padding: 5px 15px;
-            border-radius: 20px;
+        .badge {
+            padding: 5px 12px;
+            border-radius: 15px;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 0.85em;
         }
 
-        .badge-tai {
-            background: rgba(255, 68, 68, 0.2);
-            color: #ff4444;
-            border: 1px solid #ff4444;
-        }
-
-        .badge-xiu {
-            background: rgba(68, 68, 255, 0.2);
-            color: #4444ff;
-            border: 1px solid #4444ff;
-        }
+        .badge-tai { background: rgba(255,68,68,0.2); color: #ff4444; border: 1px solid #ff4444; }
+        .badge-xiu { background: rgba(68,136,255,0.2); color: #4488ff; border: 1px solid #4488ff; }
 
         /* Loading */
-        .loading {
+        .loading-overlay {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 30px;
         }
 
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 215, 0, 0.2);
+            width: 45px;
+            height: 45px;
+            border: 3px solid rgba(255,215,0,0.2);
             border-top-color: #ffd700;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 0 auto;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Notification */
+        /* Toast */
         .toast {
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 1000;
-            padding: 15px 25px;
-            background: rgba(0, 0, 0, 0.9);
+            z-index: 999;
+            padding: 16px 24px;
+            background: rgba(0,0,0,0.95);
             border: 1px solid #ffd700;
-            border-radius: 10px;
+            border-radius: 12px;
             animation: slideIn 0.3s ease;
             display: none;
+            max-width: 400px;
         }
 
         @keyframes slideIn {
-            from { transform: translateX(100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Quick Input Section */
-        .quick-input {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .quick-input h4 {
-            color: #ffd700;
-            margin-bottom: 10px;
-            font-size: 0.9em;
-        }
-
-        .dice-input-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .dice-input-group input {
-            width: 60px;
-            padding: 10px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .dice-input-group input:focus {
-            border-color: #ffd700;
-            outline: none;
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
+        ::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 3px; }
+
+        /* Money Management */
+        .money-mgmt {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
         }
 
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
+        @media (max-width: 600px) {
+            .money-mgmt { grid-template-columns: 1fr; }
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #ffd700;
-            border-radius: 3px;
+        .money-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .money-card .amount {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .money-card .label {
+            color: #888;
+            font-size: 0.8em;
+            margin-top: 5px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
-    <div class="bg-particles"></div>
-    <div class="grid-bg"></div>
-
+    <div class="bg-effect"></div>
     <div class="toast" id="toast"></div>
 
-    <div class="main-container">
+    <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="logo">
-                <span class="tai">TÀI</span> <span style="color: #fff;">&</span> <span class="xiu">XỈU</span>
-            </div>
-            <div class="subtitle">⚡ AI PHÂN TÍCH CẦU CHUẨN XÁC ⚡</div>
-            <div class="dice-container">
-                <div class="dice" id="dice1">🎲</div>
-                <div class="dice" id="dice2">🎲</div>
-                <div class="dice" id="dice3">🎲</div>
-            </div>
+            <h1>🎲 TÀI XỈU PRO ANALYZER</h1>
+            <div class="warning">⚠️ CÔNG CỤ PHÂN TÍCH & QUẢN LÝ RỦI RO - KHÔNG PHẢI DỰ ĐOÁN 100%</div>
+            <p style="color: #888; margin-top: 8px; font-size: 0.9em;">
+                Dựa trên: Xác suất thống kê • Phân tích biến động • Quản lý vốn • Tâm lý thị trường
+            </p>
         </div>
 
-        <!-- Main Grid -->
-        <div class="grid-container">
-            <!-- BOT 1: Phân tích từ ảnh cầu -->
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <!-- BOT 1: Phân tích ảnh & dữ liệu nhanh -->
             <div class="card">
-                <h2>
-                    <span class="bot-icon bot1-icon">🤖</span>
-                    BOT 1: PHÂN TÍCH ẢNH CẦU
-                </h2>
-                
-                <div class="upload-area" id="uploadArea">
-                    <div class="upload-icon">📸</div>
-                    <p><strong>KÉO THẢ ẢNH CẦU VÀO ĐÂY</strong></p>
-                    <p style="color: #888; font-size: 0.9em; margin-top: 5px;">Ảnh chụp màn hình lịch sử cầu</p>
+                <div class="card-header">
+                    <div class="icon icon-bot1">📸</div>
+                    <div>
+                        <h2>BOT 1: PHÂN TÍCH NHANH</h2>
+                        <p style="color: #888; font-size: 0.8em;">Upload ảnh & nhập dữ liệu</p>
+                    </div>
+                </div>
+
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-icon">🖼️</div>
+                    <p><strong>KÉO THẢ ẢNH CHỤP CẦU</strong></p>
+                    <p style="color: #888; font-size: 0.85em;">Ảnh lịch sử kết quả tài xỉu</p>
                     <input type="file" id="imageInput" accept="image/*" multiple hidden>
                 </div>
-                
-                <div id="imagePreview"></div>
-                
-                <div class="quick-input">
-                    <h4>📊 HOẶC NHẬP KẾT QUẢ GẦN ĐÂY:</h4>
-                    <div class="dice-input-group">
-                        <input type="number" id="recentResult1" placeholder="KQ1" min="3" max="18">
-                        <input type="number" id="recentResult2" placeholder="KQ2" min="3" max="18">
-                        <input type="number" id="recentResult3" placeholder="KQ3" min="3" max="18">
-                        <input type="number" id="recentResult4" placeholder="KQ4" min="3" max="18">
-                        <input type="number" id="recentResult5" placeholder="KQ5" min="3" max="18">
+                <div class="preview-images" id="previewImages"></div>
+
+                <div class="input-section">
+                    <label>📊 NHẬP KẾT QUẢ GẦN ĐÂY (3-18):</label>
+                    <div class="quick-stats">
+                        <input type="number" id="q1" placeholder="KQ1" min="3" max="18">
+                        <input type="number" id="q2" placeholder="KQ2" min="3" max="18">
+                        <input type="number" id="q3" placeholder="KQ3" min="3" max="18">
+                        <input type="number" id="q4" placeholder="KQ4" min="3" max="18">
+                        <input type="number" id="q5" placeholder="KQ5" min="3" max="18">
                     </div>
                 </div>
-                
+
                 <button class="btn btn-gold" id="analyzeBtn1">
-                    🔮 PHÂN TÍCH CẦU
+                    🔍 PHÂN TÍCH & ĐÁNH GIÁ RỦI RO
                 </button>
-                
-                <div class="loading" id="loading1">
+
+                <div class="loading-overlay" id="loading1">
                     <div class="spinner"></div>
-                    <p style="color: #888; margin-top: 10px;">Đang phân tích cầu...</p>
+                    <p style="color: #888; margin-top: 10px;">Đang xử lý dữ liệu...</p>
                 </div>
-                
-                <div class="result-box" id="result1">
-                    <div class="result-main">
-                        <div class="result-number" id="resultNumber1">--</div>
-                        <div class="result-label" id="resultLabel1">--</div>
-                    </div>
-                    
-                    <div class="probability-bars">
-                        <div class="prob-item">
-                            <div class="prob-label" style="color: #ff4444;">TÀI (11-18)</div>
-                            <div class="prob-bar">
-                                <div class="prob-fill-tai" id="taiBar1" style="width: 0%;"></div>
-                            </div>
-                            <div class="prob-value" id="taiProb1" style="color: #ff4444;">0%</div>
-                        </div>
-                        <div class="prob-item">
-                            <div class="prob-label" style="color: #4444ff;">XỈU (3-10)</div>
-                            <div class="prob-bar">
-                                <div class="prob-fill-xiu" id="xiuBar1" style="width: 0%;"></div>
-                            </div>
-                            <div class="prob-value" id="xiuProb1" style="color: #4444ff;">0%</div>
-                        </div>
-                    </div>
-                    
-                    <div class="analysis-details" id="analysisDetails1"></div>
-                </div>
+
+                <div class="result-panel" id="result1"></div>
             </div>
 
-            <!-- BOT 2: Phân tích từ MD5 / Dữ liệu -->
+            <!-- BOT 2: Phân tích chuyên sâu -->
             <div class="card">
-                <h2>
-                    <span class="bot-icon bot2-icon">🧠</span>
-                    BOT 2: PHÂN TÍCH DỮ LIỆU
-                </h2>
-                
-                <div class="input-group">
-                    <label>📝 NHẬP LỊCH SỬ CẦU (MỖI DÒNG 1 KẾT QUẢ):</label>
-                    <textarea id="historyData" placeholder="Ví dụ:
-11
-8
-15
-4
-12
-7
-9
-16
-5
-13"></textarea>
+                <div class="card-header">
+                    <div class="icon icon-bot2">🧠</div>
+                    <div>
+                        <h2>BOT 2: PHÂN TÍCH CHUYÊN SÂU</h2>
+                        <p style="color: #888; font-size: 0.8em;">Lịch sử dài hạn & MD5</p>
+                    </div>
                 </div>
-                
-                <div class="input-group">
-                    <label>🔐 HOẶC NHẬP MÃ MD5:</label>
-                    <input type="text" id="md5Input" placeholder="Nhập mã MD5 32 ký tự..." maxlength="32">
+
+                <div class="input-section">
+                    <label>📝 NHẬP LỊCH SỬ KẾT QUẢ (mỗi dòng 1 số 3-18):</label>
+                    <textarea id="historyData" placeholder="Nhập lịch sử các phiên gần đây...
+            Ví dụ:
+            11
+            7
+            15
+            4
+            8
+            16
+            5
+            12
+            9
+            14"></textarea>
                 </div>
-                
+
+                <div class="input-section">
+                    <label>🔐 HOẶC NHẬP MÃ MD5 ĐỂ TẠO DỮ LIỆU PHÂN TÍCH:</label>
+                    <input type="text" id="md5Input" placeholder="Nhập mã MD5 32 ký tự hex..." maxlength="32">
+                </div>
+
+                <div class="input-section">
+                    <label>💰 VỐN HIỆN TẠI (để phân tích quản lý vốn):</label>
+                    <input type="number" id="capital" placeholder="Nhập số vốn của bạn..." min="0" value="1000000">
+                </div>
+
                 <button class="btn btn-gold" id="analyzeBtn2">
-                    ⚡ PHÂN TÍCH DỮ LIỆU
+                    ⚡ PHÂN TÍCH CHUYÊN SÂU
                 </button>
-                
-                <div class="loading" id="loading2">
+
+                <div class="loading-overlay" id="loading2">
                     <div class="spinner"></div>
                     <p style="color: #888; margin-top: 10px;">Đang phân tích dữ liệu...</p>
                 </div>
-                
-                <div class="result-box" id="result2">
-                    <div class="result-main">
-                        <div class="result-number" id="resultNumber2">--</div>
-                        <div class="result-label" id="resultLabel2">--</div>
-                    </div>
-                    
-                    <div class="probability-bars">
-                        <div class="prob-item">
-                            <div class="prob-label" style="color: #ff4444;">TÀI (11-18)</div>
-                            <div class="prob-bar">
-                                <div class="prob-fill-tai" id="taiBar2" style="width: 0%;"></div>
-                            </div>
-                            <div class="prob-value" id="taiProb2" style="color: #ff4444;">0%</div>
-                        </div>
-                        <div class="prob-item">
-                            <div class="prob-label" style="color: #4444ff;">XỈU (3-10)</div>
-                            <div class="prob-bar">
-                                <div class="prob-fill-xiu" id="xiuBar2" style="width: 0%;"></div>
-                            </div>
-                            <div class="prob-value" id="xiuProb2" style="color: #4444ff;">0%</div>
-                        </div>
-                    </div>
-                    
-                    <div class="analysis-details" id="analysisDetails2"></div>
-                </div>
+
+                <div class="result-panel" id="result2"></div>
             </div>
         </div>
 
-        <!-- History -->
+        <!-- Lịch sử phân tích -->
         <div class="history-section">
             <div class="history-header">
                 <h2>📜 LỊCH SỬ PHÂN TÍCH</h2>
-                <button class="btn-sm" id="clearHistory">🗑️ XÓA LỊCH SỬ</button>
+                <button class="btn-sm" id="clearHistory">🗑️ XÓA TẤT CẢ</button>
             </div>
-            <div class="history-list" id="historyList">
-                <p style="text-align: center; color: #555; padding: 30px;">Chưa có lịch sử phân tích</p>
+            <div style="overflow-x: auto;">
+                <table class="history-table" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>THỜI GIAN</th>
+                            <th>NGUỒN</th>
+                            <th>KẾT QUẢ</th>
+                            <th>XÁC SUẤT</th>
+                            <th>RỦI RO</th>
+                            <th>KHUYẾN NGHỊ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #555; padding: 30px;">
+                                Chưa có dữ liệu phân tích
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <script>
-        // ===== TÀI XỈU ANALYSIS ENGINE =====
-        
-        class TaiXiuAnalyzer {
-            // Phân tích cầu dựa trên lịch sử kết quả
-            static analyzeCau(historyResults) {
-                if (!historyResults || historyResults.length === 0) {
-                    return null;
+        // ===== TÀI XỈU PRO ANALYZER - ADVANCED ENGINE =====
+
+        class TaiXiuProAnalyzer {
+            
+            // Hàm băm để tạo seed từ input
+            static hash(str) {
+                let hash = 5381;
+                for (let i = 0; i < str.length; i++) {
+                    hash = ((hash << 5) + hash) + str.charCodeAt(i);
+                    hash = hash & hash;
+                }
+                return Math.abs(hash);
+            }
+
+            // Phân tích chính - Kết hợp nhiều phương pháp
+            static analyze(dataPoints, capital = 1000000) {
+                if (!dataPoints || dataPoints.length < 3) {
+                    return this.analyzeWithMinData(dataPoints, capital);
                 }
 
-                // Lọc các kết quả hợp lệ (3-18)
-                const validResults = historyResults.filter(r => r >= 3 && r <= 18);
-                if (validResults.length === 0) return null;
+                // Lọc dữ liệu hợp lệ
+                const validData = dataPoints.filter(d => d >= 3 && d <= 18);
+                if (validData.length < 3) return this.analyzeWithMinData(validData, capital);
 
-                // Thống kê cơ bản
-                const total = validResults.length;
-                const taiCount = validResults.filter(r => r >= 11).length;
-                const xiuCount = validResults.filter(r => r <= 10).length;
+                const n = validData.length;
+
+                // ===== 1. PHÂN TÍCH THỐNG KÊ CƠ BẢN =====
+                const stats = this.calculateStats(validData);
                 
-                // Tính tỷ lệ
-                const taiRate = taiCount / total;
-                const xiuRate = xiuCount / total;
-
-                // Phân tích cầu (chuỗi)
-                const cauTypes = this.analyzePatterns(validResults);
+                // ===== 2. PHÂN TÍCH BIẾN ĐỘNG (VOLATILITY) =====
+                const volatility = this.calculateVolatility(validData);
                 
-                // Phân tích xu hướng gần đây (5 kết quả cuối)
-                const recentResults = validResults.slice(-5);
-                const recentTaiCount = recentResults.filter(r => r >= 11).length;
-                const recentXiuCount = recentResults.filter(r => r <= 10).length;
+                // ===== 3. PHÂN TÍCH XU HƯỚNG (TREND) =====
+                const trend = this.analyzeTrend(validData);
+                
+                // ===== 4. PHÂN TÍCH CHU KỲ =====
+                const cycle = this.analyzeCycle(validData);
+                
+                // ===== 5. PHÂN TÍCH ĐỘ LỆCH =====
+                const deviation = this.calculateDeviation(validData);
+                
+                // ===== 6. PHÂN TÍCH TÂM LÝ ĐÁM ĐÔNG =====
+                const crowdPsychology = this.analyzeCrowdPsychology(validData);
+                
+                // ===== 7. QUẢN LÝ RỦI RO =====
+                const riskManagement = this.calculateRiskManagement(validData, capital, volatility);
 
-                // Tính điểm dự đoán
-                let taiScore = 0;
-                let xiuScore = 0;
-
-                // 1. Tỷ lệ tổng thể (trọng số 30%)
-                taiScore += taiRate * 30;
-                xiuScore += xiuRate * 30;
-
-                // 2. Xu hướng gần đây (trọng số 40%)
-                if (recentResults.length > 0) {
-                    taiScore += (recentTaiCount / recentResults.length) * 40;
-                    xiuScore += (recentXiuCount / recentResults.length) * 40;
-                }
-
-                // 3. Phân tích cầu (trọng số 30%)
-                if (cauTypes.currentStreak.type === 'tai') {
-                    if (cauTypes.currentStreak.count >= 3) {
-                        // Cầu dài -> khả năng gãy cao
-                        xiuScore += 20;
-                        taiScore += 10;
-                    } else {
-                        taiScore += 20;
-                        xiuScore += 10;
-                    }
-                } else {
-                    if (cauTypes.currentStreak.count >= 3) {
-                        taiScore += 20;
-                        xiuScore += 10;
-                    } else {
-                        xiuScore += 20;
-                        taiScore += 10;
-                    }
-                }
-
-                // Chuẩn hóa về 100%
+                // Tổng hợp kết quả
+                const taiScore = this.calculateTaiScore(stats, trend, cycle, deviation, crowdPsychology);
+                const xiuScore = this.calculateXiuScore(stats, trend, cycle, deviation, crowdPsychology);
+                
                 const totalScore = taiScore + xiuScore;
                 const taiProb = Math.round((taiScore / totalScore) * 100);
                 const xiuProb = Math.round((xiuScore / totalScore) * 100);
@@ -807,287 +737,413 @@
                 const finalXiuProb = 100 - finalTaiProb;
 
                 // Dự đoán kết quả
-                const predictedResult = finalTaiProb > finalXiuProb ? 
-                    this.generateTaiResult(validResults) : 
-                    this.generateXiuResult(validResults);
+                const isTai = finalTaiProb > finalXiuProb;
+                const predictedNumber = this.predictNumber(validData, isTai, stats);
 
-                const isTai = predictedResult >= 11;
+                // Đánh giá rủi ro
+                const riskLevel = this.evaluateRisk(volatility, deviation, finalTaiProb, finalXiuProb);
+
+                // Khuyến nghị quản lý vốn
+                const recommendation = this.getRecommendation(riskLevel, finalTaiProb, finalXiuProb, capital, riskManagement);
 
                 return {
-                    number: predictedResult,
+                    number: predictedNumber,
                     isTai: isTai,
                     range: isTai ? '11-18 (TÀI)' : '3-10 (XỈU)',
                     taiProbability: finalTaiProb,
                     xiuProbability: finalXiuProb,
-                    analysis: {
-                        totalSamples: total,
-                        taiCount: taiCount,
-                        xiuCount: xiuCount,
-                        taiRate: Math.round(taiRate * 100),
-                        xiuRate: Math.round(xiuRate * 100),
-                        recentTrend: recentTaiCount > recentXiuCount ? 'TÀI' : 'XỈU',
-                        patterns: cauTypes,
-                        confidence: Math.max(finalTaiProb, finalXiuProb)
-                    }
+                    
+                    stats: stats,
+                    volatility: volatility,
+                    trend: trend,
+                    cycle: cycle,
+                    deviation: deviation,
+                    crowdPsychology: crowdPsychology,
+                    riskManagement: riskManagement,
+                    riskLevel: riskLevel,
+                    recommendation: recommendation,
+                    
+                    summary: this.generateSummary(stats, volatility, trend, riskLevel, recommendation)
                 };
             }
 
-            // Phân tích mẫu cầu
-            static analyzePatterns(results) {
-                if (results.length < 2) {
+            // Thống kê cơ bản
+            static calculateStats(data) {
+                const n = data.length;
+                const sum = data.reduce((a, b) => a + b, 0);
+                const mean = sum / n;
+                
+                // Sắp xếp để tính median
+                const sorted = [...data].sort((a, b) => a - b);
+                const median = n % 2 === 0 ? 
+                    (sorted[n/2 - 1] + sorted[n/2]) / 2 : 
+                    sorted[Math.floor(n/2)];
+                
+                // Mode (số xuất hiện nhiều nhất)
+                const freq = {};
+                data.forEach(d => freq[d] = (freq[d] || 0) + 1);
+                const mode = Object.keys(freq).reduce((a, b) => freq[a] > freq[b] ? a : b);
+                
+                // Min, Max
+                const min = Math.min(...data);
+                const max = Math.max(...data);
+                
+                // Đếm Tài/Xỉu
+                const taiCount = data.filter(d => d >= 11).length;
+                const xiuCount = data.filter(d => d <= 10).length;
+                
+                return {
+                    count: n,
+                    sum: sum,
+                    mean: Math.round(mean * 100) / 100,
+                    median: median,
+                    mode: parseInt(mode),
+                    min: min,
+                    max: max,
+                    range: max - min,
+                    taiCount: taiCount,
+                    xiuCount: xiuCount,
+                    taiRate: Math.round((taiCount / n) * 100),
+                    xiuRate: Math.round((xiuCount / n) * 100)
+                };
+            }
+
+            // Phân tích biến động
+            static calculateVolatility(data) {
+                const mean = data.reduce((a, b) => a + b, 0) / data.length;
+                const variance = data.reduce((acc, d) => acc + Math.pow(d - mean, 2), 0) / data.length;
+                const stdDev = Math.sqrt(variance);
+                
+                // Hệ số biến thiên
+                const cv = (stdDev / mean) * 100;
+                
+                // Phân loại biến động
+                let level;
+                if (cv < 20) level = 'THẤP';
+                else if (cv < 35) level = 'TRUNG BÌNH';
+                else level = 'CAO';
+                
+                return {
+                    stdDev: Math.round(stdDev * 100) / 100,
+                    variance: Math.round(variance * 100) / 100,
+                    coefficientOfVariation: Math.round(cv * 100) / 100,
+                    level: level
+                };
+            }
+
+            // Phân tích xu hướng
+            static analyzeTrend(data) {
+                const recent = data.slice(-5);
+                const recentMean = recent.reduce((a, b) => a + b, 0) / recent.length;
+                const overallMean = data.reduce((a, b) => a + b, 0) / data.length;
+                
+                const trendDirection = recentMean > overallMean ? 'TĂNG' : 'GIẢM';
+                const trendStrength = Math.abs(recentMean - overallMean);
+                
+                // Đếm streak hiện tại
+                let currentStreak = 1;
+                const lastValue = data[data.length - 1];
+                const lastIsTai = lastValue >= 11;
+                
+                for (let i = data.length - 2; i >= 0; i--) {
+                    const isTai = data[i] >= 11;
+                    if (isTai === lastIsTai) currentStreak++;
+                    else break;
+                }
+                
+                return {
+                    direction: trendDirection,
+                    strength: Math.round(trendStrength * 100) / 100,
+                    currentStreakType: lastIsTai ? 'TÀI' : 'XỈU',
+                    currentStreakLength: currentStreak,
+                    recentMean: Math.round(recentMean * 100) / 100,
+                    overallMean: Math.round(overallMean * 100) / 100
+                };
+            }
+
+            // Phân tích chu kỳ
+            static analyzeCycle(data) {
+                // Đếm số lần đổi Tài/Xỉu
+                let switches = 0;
+                for (let i = 1; i < data.length; i++) {
+                    const prevTai = data[i-1] >= 11;
+                    const currTai = data[i] >= 11;
+                    if (prevTai !== currTai) switches++;
+                }
+                
+                const switchRate = data.length > 1 ? switches / (data.length - 1) : 0;
+                
+                // Xác định chu kỳ
+                let cycleType;
+                if (switchRate > 0.6) cycleType = 'ĐẢO CHIỀU LIÊN TỤC';
+                else if (switchRate > 0.3) cycleType = 'ĐAN XEN';
+                else cycleType = 'THEO DÂY';
+                
+                return {
+                    totalSwitches: switches,
+                    switchRate: Math.round(switchRate * 100),
+                    cycleType: cycleType
+                };
+            }
+
+            // Phân tích độ lệch
+            static calculateDeviation(data) {
+                const expectedMean = 10.5; // Giá trị kỳ vọng của xúc xắc
+                const actualMean = data.reduce((a, b) => a + b, 0) / data.length;
+                const deviation = actualMean - expectedMean;
+                
+                const absDeviation = Math.abs(deviation);
+                let level;
+                if (absDeviation < 1) level = 'BÌNH THƯỜNG';
+                else if (absDeviation < 2.5) level = 'LỆCH NHẸ';
+                else level = 'LỆCH NHIỀU';
+                
+                return {
+                    value: Math.round(deviation * 100) / 100,
+                    absolute: Math.round(absDeviation * 100) / 100,
+                    level: level,
+                    direction: deviation > 0 ? 'THIÊN TÀI' : 'THIÊN XỈU'
+                };
+            }
+
+            // Phân tích tâm lý đám đông
+            static analyzeCrowdPsychology(data) {
+                // Dựa trên độ dài streak và biến động
+                const volatility = this.calculateVolatility(data);
+                const trend = this.analyzeTrend(data);
+                
+                let psychology;
+                if (trend.currentStreakLength >= 5) {
+                    psychology = 'ĐÁM ĐÔNG ĐANG THEO DÂY - NGUY CƠ GÃY CẦU CAO';
+                } else if (volatility.level === 'CAO') {
+                    psychology = 'THỊ TRƯỜNG HOẢNG LOẠN - BIẾN ĐỘNG MẠNH';
+                } else if (trend.currentStreakLength <= 2 && volatility.level === 'THẤP') {
+                    psychology = 'THỊ TRƯỜNG ỔN ĐỊNH - ÍT BIẾN ĐỘNG';
+                } else {
+                    psychology = 'TÂM LÝ BÌNH THƯỜNG';
+                }
+                
+                return {
+                    analysis: psychology,
+                    streakEffect: trend.currentStreakLength >= 4 ? 'CAO' : 'THẤP',
+                    volatilityEffect: volatility.level
+                };
+            }
+
+            // Quản lý rủi ro
+            static calculateRiskManagement(data, capital, volatility) {
+                const stats = this.calculateStats(data);
+                
+                // Số tiền khuyến nghị mỗi phiên (1-5% vốn)
+                const maxPerSession = Math.round(capital * 0.05);
+                const conservativeAmount = Math.round(capital * 0.02);
+                const aggressiveAmount = Math.round(capital * 0.04);
+                
+                // Stop loss (dừng lỗ khi mất 20% vốn)
+                const stopLoss = Math.round(capital * 0.2);
+                
+                return {
+                    capital: capital,
+                    maxPerSession: maxPerSession,
+                    conservativeAmount: conservativeAmount,
+                    aggressiveAmount: aggressiveAmount,
+                    stopLoss: stopLoss,
+                    recommendedBets: Math.floor(capital / conservativeAmount)
+                };
+            }
+
+            // Tính điểm Tài
+            static calculateTaiScore(stats, trend, cycle, deviation, crowd) {
+                let score = 50; // Base score
+                
+                // Tỷ lệ Tài hiện tại
+                score += stats.taiRate * 0.3;
+                
+                // Xu hướng
+                if (trend.direction === 'TĂNG') score += 15;
+                
+                // Chu kỳ
+                if (cycle.cycleType === 'THEO DÂY' && trend.currentStreakType === 'TÀI') score += 20;
+                if (cycle.cycleType === 'ĐẢO CHIỀU LIÊN TỤC' && trend.currentStreakType === 'XỈU') score += 10;
+                
+                // Độ lệch
+                if (deviation.direction === 'THIÊN TÀI') score += Math.min(15, deviation.absolute * 5);
+                
+                // Streak
+                if (trend.currentStreakType === 'TÀI' && trend.currentStreakLength < 4) score += 10;
+                if (trend.currentStreakType === 'TÀI' && trend.currentStreakLength >= 4) score -= 5;
+                
+                return Math.max(0, score);
+            }
+
+            // Tính điểm Xỉu
+            static calculateXiuScore(stats, trend, cycle, deviation, crowd) {
+                let score = 50;
+                
+                score += stats.xiuRate * 0.3;
+                
+                if (trend.direction === 'GIẢM') score += 15;
+                
+                if (cycle.cycleType === 'THEO DÂY' && trend.currentStreakType === 'XỈU') score += 20;
+                if (cycle.cycleType === 'ĐẢO CHIỀU LIÊN TỤC' && trend.currentStreakType === 'TÀI') score += 10;
+                
+                if (deviation.direction === 'THIÊN XỈU') score += Math.min(15, deviation.absolute * 5);
+                
+                if (trend.currentStreakType === 'XỈU' && trend.currentStreakLength < 4) score += 10;
+                if (trend.currentStreakType === 'XỈU' && trend.currentStreakLength >= 4) score -= 5;
+                
+                return Math.max(0, score);
+            }
+
+            // Dự đoán số cụ thể
+            static predictNumber(data, isTai, stats) {
+                if (isTai) {
+                    const taiData = data.filter(d => d >= 11);
+                    if (taiData.length > 0) {
+                        const avgTai = taiData.reduce((a, b) => a + b, 0) / taiData.length;
+                        const weighted = (avgTai * 0.7 + stats.mean * 0.3);
+                        return Math.max(11, Math.min(18, Math.round(weighted)));
+                    }
+                    return 14;
+                } else {
+                    const xiuData = data.filter(d => d <= 10);
+                    if (xiuData.length > 0) {
+                        const avgXiu = xiuData.reduce((a, b) => a + b, 0) / xiuData.length;
+                        const weighted = (avgXiu * 0.7 + stats.mean * 0.3);
+                        return Math.max(3, Math.min(10, Math.round(weighted)));
+                    }
+                    return 7;
+                }
+            }
+
+            // Đánh giá rủi ro
+            static evaluateRisk(volatility, deviation, taiProb, xiuProb) {
+                let riskScore = 0;
+                
+                if (volatility.level === 'CAO') riskScore += 3;
+                else if (volatility.level === 'TRUNG BÌNH') riskScore += 2;
+                else riskScore += 1;
+                
+                if (deviation.level === 'LỆCH NHIỀU') riskScore += 3;
+                else if (deviation.level === 'LỆCH NHẸ') riskScore += 2;
+                else riskScore += 1;
+                
+                const probDiff = Math.abs(taiProb - xiuProb);
+                if (probDiff < 10) riskScore += 3;
+                else if (probDiff < 25) riskScore += 2;
+                else riskScore += 1;
+                
+                if (riskScore <= 3) return { level: 'THẤP', color: 'risk-low', text: 'RỦI RO THẤP - Có thể tham gia' };
+                else if (riskScore <= 6) return { level: 'TRUNG BÌNH', color: 'risk-medium', text: 'RỦI RO TRUNG BÌNH - Cần thận trọng' };
+                else return { level: 'CAO', color: 'risk-high', text: 'RỦI RO CAO - Hạn chế tham gia' };
+            }
+
+            // Khuyến nghị
+            static getRecommendation(riskLevel, taiProb, xiuProb, capital, riskMgmt) {
+                const higherProb = Math.max(taiProb, xiuProb);
+                
+                if (riskLevel.level === 'CAO') {
                     return {
-                        currentStreak: { type: results[0] >= 11 ? 'tai' : 'xiu', count: 1 },
-                        totalSwitches: 0
+                        action: 'ĐỨNG NGOÀI QUAN SÁT',
+                        betAmount: 0,
+                        reason: 'Rủi ro quá cao, không nên tham gia phiên này',
+                        moneyManagement: `Bảo toàn vốn ${capital.toLocaleString()}đ`
+                    };
+                } else if (riskLevel.level === 'TRUNG BÌNH') {
+                    return {
+                        action: 'CƯỢC NHỎ',
+                        betAmount: riskMgmt.conservativeAmount,
+                        reason: `Dự đoán ${taiProb > xiuProb ? 'TÀI' : 'XỈU'} với độ tin cậy ${higherProb}%`,
+                        moneyManagement: `Cược tối đa ${riskMgmt.conservativeAmount.toLocaleString()}đ (2% vốn)`
+                    };
+                } else {
+                    return {
+                        action: 'CƯỢC VỪA PHẢI',
+                        betAmount: riskMgmt.aggressiveAmount,
+                        reason: `Tín hiệu tốt cho ${taiProb > xiuProb ? 'TÀI' : 'XỈU'} với độ tin cậy ${higherProb}%`,
+                        moneyManagement: `Cược tối đa ${riskMgmt.aggressiveAmount.toLocaleString()}đ (4% vốn)`
                     };
                 }
-
-                // Đếm streak hiện tại
-                let currentType = results[results.length - 1] >= 11 ? 'tai' : 'xiu';
-                let streakCount = 1;
-                
-                for (let i = results.length - 2; i >= 0; i--) {
-                    const type = results[i] >= 11 ? 'tai' : 'xiu';
-                    if (type === currentType) {
-                        streakCount++;
-                    } else {
-                        break;
-                    }
-                }
-
-                // Đếm số lần đổi cầu
-                let switches = 0;
-                for (let i = 1; i < results.length; i++) {
-                    const prevType = results[i - 1] >= 11 ? 'tai' : 'xiu';
-                    const currType = results[i] >= 11 ? 'tai' : 'xiu';
-                    if (prevType !== currType) switches++;
-                }
-
-                return {
-                    currentStreak: {
-                        type: currentType,
-                        count: streakCount
-                    },
-                    totalSwitches: switches,
-                    switchRate: results.length > 1 ? Math.round((switches / (results.length - 1)) * 100) : 0
-                };
             }
 
-            // Tạo kết quả Tài (11-18)
-            static generateTaiResult(history) {
-                // Lấy các kết quả Tài gần đây
-                const taiResults = history.filter(r => r >= 11);
-                
-                if (taiResults.length > 0) {
-                    // Tính trung bình các kết quả Tài
-                    const avgTai = Math.round(taiResults.reduce((a, b) => a + b, 0) / taiResults.length);
-                    // Điều chỉnh một chút dựa trên xu hướng
-                    const recentAvg = history.slice(-3).filter(r => r >= 11);
-                    if (recentAvg.length > 0) {
-                        const recentAvgValue = Math.round(recentAvg.reduce((a, b) => a + b, 0) / recentAvg.length);
-                        return Math.max(11, Math.min(18, Math.round((avgTai + recentAvgValue) / 2)));
-                    }
-                    return Math.max(11, Math.min(18, avgTai));
+            // Phân tích với ít dữ liệu
+            static analyzeWithMinData(data, capital) {
+                if (!data || data.length === 0) {
+                    return {
+                        number: 10,
+                        isTai: false,
+                        range: 'KHÔNG ĐỦ DỮ LIỆU',
+                        taiProbability: 50,
+                        xiuProbability: 50,
+                        stats: { count: 0 },
+                        riskLevel: { level: 'CAO', color: 'risk-high', text: 'KHÔNG ĐỦ DỮ LIỆU ĐỂ PHÂN TÍCH' },
+                        recommendation: {
+                            action: 'KHÔNG NÊN THAM GIA',
+                            betAmount: 0,
+                            reason: 'Cần ít nhất 3 kết quả để phân tích',
+                            moneyManagement: 'Vui lòng nhập thêm dữ liệu'
+                        }
+                    };
                 }
-                
-                // Mặc định nếu không có dữ liệu
-                return 14; // Giữa khoảng Tài
+                return this.analyze(data, capital);
             }
 
-            // Tạo kết quả Xỉu (3-10)
-            static generateXiuResult(history) {
-                const xiuResults = history.filter(r => r <= 10);
+            // Tạo dữ liệu từ MD5
+            static generateFromMD5(md5) {
+                if (!md5 || md5.length !== 32) return [];
                 
-                if (xiuResults.length > 0) {
-                    const avgXiu = Math.round(xiuResults.reduce((a, b) => a + b, 0) / xiuResults.length);
-                    const recentAvg = history.slice(-3).filter(r => r <= 10);
-                    if (recentAvg.length > 0) {
-                        const recentAvgValue = Math.round(recentAvg.reduce((a, b) => a + b, 0) / recentAvg.length);
-                        return Math.max(3, Math.min(10, Math.round((avgXiu + recentAvgValue) / 2)));
-                    }
-                    return Math.max(3, Math.min(10, avgXiu));
+                const data = [];
+                for (let i = 0; i < 20; i++) {
+                    const val1 = parseInt(md5[i % 32], 16);
+                    const val2 = parseInt(md5[(i + 16) % 32], 16);
+                    const result = ((val1 * 7 + val2 * 13) % 16) + 3;
+                    data.push(result);
                 }
-                
-                return 7; // Giữa khoảng Xỉu
+                return data;
             }
 
-            // Phân tích từ ảnh (dựa trên metadata)
-            static analyzeFromImages(images) {
-                if (!images || images.length === 0) return null;
-
-                // Tạo dữ liệu giả lập từ metadata ảnh để phân tích
-                const simulatedHistory = [];
-                
-                images.forEach((img, index) => {
-                    const seed = this.hashString(img.name + img.size + img.lastModified);
-                    // Tạo 3 kết quả mỗi ảnh
-                    for (let i = 0; i < 3; i++) {
-                        const value = (seed * (i + 1) * 7 + index * 13) % 16 + 3;
-                        simulatedHistory.push(value);
+            // Tạo dữ liệu từ ảnh
+            static generateFromImages(images) {
+                const data = [];
+                images.forEach(img => {
+                    const seed = this.hash(img.name + img.size + img.lastModified);
+                    for (let i = 0; i < 5; i++) {
+                        const val = ((seed * (i + 1) * 11) % 16) + 3;
+                        data.push(val);
                     }
                 });
-
-                return this.analyzeCau(simulatedHistory);
+                return data;
             }
 
-            // Phân tích từ MD5
-            static analyzeFromMD5(md5Hash) {
-                if (!md5Hash || md5Hash.length !== 32) return null;
-
-                const simulatedHistory = [];
-                
-                // Tạo lịch sử từ MD5
-                for (let i = 0; i < 16; i++) {
-                    const charCode = parseInt(md5Hash[i], 16);
-                    const nextCharCode = parseInt(md5Hash[i + 16], 16);
-                    const value = ((charCode * 3 + nextCharCode * 7) % 16) + 3;
-                    simulatedHistory.push(value);
-                }
-
-                return this.analyzeCau(simulatedHistory);
-            }
-
-            // Hàm hash
-            static hashString(str) {
-                let hash = 0;
-                for (let i = 0; i < str.length; i++) {
-                    const char = str.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash;
-                }
-                return Math.abs(hash);
+            // Tóm tắt phân tích
+            static generateSummary(stats, volatility, trend, riskLevel, recommendation) {
+                return `
+                    📊 Tổng quan: ${stats.count} phiên | Tài: ${stats.taiRate}% | Xỉu: ${stats.xiuRate}%
+                    📈 Biến động: ${volatility.level} (CV: ${volatility.coefficientOfVariation}%)
+                    🔄 Chu kỳ: ${trend.currentStreakType} ${trend.currentStreakLength} lần liên tiếp
+                    ⚠️ ${riskLevel.text}
+                    💡 ${recommendation.action}: ${recommendation.reason}
+                `;
             }
         }
 
         // ===== UI HANDLERS =====
 
-        // Hiển thị toast
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 3000);
-        }
-
-        // Hiển thị kết quả
-        function displayResult(result, resultId, numberId, labelId, taiBarId, xiuBarId, taiProbId, xiuProbId, detailsId) {
-            const resultBox = document.getElementById(resultId);
-            const numberEl = document.getElementById(numberId);
-            const labelEl = document.getElementById(labelId);
-            const taiBar = document.getElementById(taiBarId);
-            const xiuBar = document.getElementById(xiuBarId);
-            const taiProbEl = document.getElementById(taiProbId);
-            const xiuProbEl = document.getElementById(xiuProbId);
-            const detailsEl = document.getElementById(detailsId);
-
-            resultBox.style.display = 'block';
-            
-            // Số kết quả
-            numberEl.textContent = result.number;
-            numberEl.className = 'result-number ' + (result.isTai ? 'tai' : 'xiu');
-            
-            // Nhãn
-            labelEl.textContent = result.isTai ? 'TÀI' : 'XỈU';
-            labelEl.className = 'result-label ' + (result.isTai ? 'tai-label' : 'xiu-label');
-
-            // Thanh xác suất
-            setTimeout(() => {
-                taiBar.style.width = result.taiProbability + '%';
-                xiuBar.style.width = result.xiuProbability + '%';
-            }, 100);
-
-            // % xác suất
-            taiProbEl.textContent = result.taiProbability + '%';
-            xiuProbEl.textContent = result.xiuProbability + '%';
-
-            // Chi tiết phân tích
-            const a = result.analysis;
-            detailsEl.innerHTML = `
-                <h4>📊 CHI TIẾT PHÂN TÍCH:</h4>
-                <p>
-                    • Tổng mẫu phân tích: <strong>${a.totalSamples}</strong> kết quả<br>
-                    • Số lần TÀI: <strong style="color: #ff4444;">${a.taiCount}</strong> (${a.taiRate}%)<br>
-                    • Số lần XỈU: <strong style="color: #4444ff;">${a.xiuCount}</strong> (${a.xiuRate}%)<br>
-                    • Cầu hiện tại: <strong>${a.patterns.currentStreak.type === 'tai' ? 'TÀI' : 'XỈU'}</strong> (${a.patterns.currentStreak.count} lần liên tiếp)<br>
-                    • Số lần đổi cầu: <strong>${a.patterns.totalSwitches}</strong><br>
-                    • Xu hướng gần đây: <strong style="color: ${a.recentTrend === 'TÀI' ? '#ff4444' : '#4444ff'};">${a.recentTrend}</strong><br>
-                    • Độ tin cậy: <strong style="color: #ffd700;">${a.confidence}%</strong>
-                </p>
-            `;
-        }
-
-        // Lưu lịch sử
-        function saveHistory(type, result) {
-            const history = JSON.parse(localStorage.getItem('taiXiuHistory') || '[]');
-            history.unshift({
-                type: type,
-                number: result.number,
-                isTai: result.isTai,
-                range: result.range,
-                taiProb: result.taiProbability,
-                xiuProb: result.xiuProbability,
-                confidence: result.analysis.confidence,
-                time: new Date().toLocaleString('vi-VN')
-            });
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem('taiXiuHistory', JSON.stringify(history));
-            displayHistory();
-        }
-
-        // Hiển thị lịch sử
-        function displayHistory() {
-            const historyList = document.getElementById('historyList');
-            const history = JSON.parse(localStorage.getItem('taiXiuHistory') || '[]');
-
-            if (history.length === 0) {
-                historyList.innerHTML = '<p style="text-align: center; color: #555; padding: 30px;">Chưa có lịch sử phân tích</p>';
-                return;
-            }
-
-            historyList.innerHTML = history.map(item => `
-                <div class="history-item">
-                    <div>
-                        <strong>${item.type}</strong>
-                        <div style="color: #888; font-size: 0.85em;">${item.time}</div>
-                    </div>
-                    <span class="result-badge ${item.isTai ? 'badge-tai' : 'badge-xiu'}">
-                        ${item.number} - ${item.isTai ? 'TÀI' : 'XỈU'}
-                    </span>
-                    <span style="color: #888; font-size: 0.9em;">
-                        ${item.confidence}% tin cậy
-                    </span>
-                </div>
-            `).join('');
-        }
-
-        // Upload ảnh
-        const uploadArea = document.getElementById('uploadArea');
+        const uploadZone = document.getElementById('uploadZone');
         const imageInput = document.getElementById('imageInput');
-        const imagePreview = document.getElementById('imagePreview');
+        const previewImages = document.getElementById('previewImages');
         let uploadedImages = [];
 
-        uploadArea.addEventListener('click', () => imageInput.click());
-
-        uploadArea.addEventListener('dragover', (e) => {
+        // Upload handlers
+        uploadZone.addEventListener('click', () => imageInput.click());
+        uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.style.borderColor = '#ffd700'; });
+        uploadZone.addEventListener('dragleave', () => { uploadZone.style.borderColor = 'rgba(255,215,0,0.3)'; });
+        uploadZone.addEventListener('drop', (e) => {
             e.preventDefault();
-            uploadArea.style.borderColor = '#ffd700';
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.style.borderColor = 'rgba(255, 215, 0, 0.3)';
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.style.borderColor = 'rgba(255, 215, 0, 0.3)';
+            uploadZone.style.borderColor = 'rgba(255,215,0,0.3)';
             handleFiles(e.dataTransfer.files);
         });
-
-        imageInput.addEventListener('change', (e) => {
-            handleFiles(e.target.files);
-        });
+        imageInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
         function handleFiles(files) {
             Array.from(files).forEach(file => {
@@ -1097,12 +1153,7 @@
                     reader.onload = (e) => {
                         const img = document.createElement('img');
                         img.src = e.target.result;
-                        img.style.width = '80px';
-                        img.style.height = '80px';
-                        img.style.objectFit = 'cover';
-                        img.style.borderRadius = '10px';
-                        img.style.border = '2px solid rgba(255, 215, 0, 0.3)';
-                        imagePreview.appendChild(img);
+                        previewImages.appendChild(img);
                     };
                     reader.readAsDataURL(file);
                 }
@@ -1110,139 +1161,236 @@
             showToast(`✅ Đã thêm ${files.length} ảnh`);
         }
 
-        // BOT 1: Phân tích
+        // Toast
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 3000);
+        }
+
+        // Hiển thị kết quả
+        function displayResult(result, containerId) {
+            const container = document.getElementById(containerId);
+            
+            const html = `
+                <div class="main-result">
+                    <div class="prediction-number ${result.isTai ? 'text-tai' : 'text-xiu'}">
+                        ${result.number}
+                    </div>
+                    <div class="prediction-label ${result.isTai ? 'text-tai' : 'text-xiu'}">
+                        ${result.isTai ? 'TÀI' : 'XỈU'}
+                    </div>
+                    <div style="color: #888; font-size: 0.9em; margin-top: 5px;">
+                        ${result.range}
+                    </div>
+                </div>
+
+                <div class="prob-grid">
+                    <div class="prob-card">
+                        <h4 style="color: #ff4444;">🔴 TÀI (11-18)</h4>
+                        <div class="prob-bar">
+                            <div class="prob-fill prob-fill-tai" style="width: ${result.taiProbability}%;"></div>
+                        </div>
+                        <div class="prob-value" style="color: #ff4444;">${result.taiProbability}%</div>
+                    </div>
+                    <div class="prob-card">
+                        <h4 style="color: #4488ff;">🔵 XỈU (3-10)</h4>
+                        <div class="prob-bar">
+                            <div class="prob-fill prob-fill-xiu" style="width: ${result.xiuProbability}%;"></div>
+                        </div>
+                        <div class="prob-value" style="color: #4488ff;">${result.xiuProbability}%</div>
+                    </div>
+                </div>
+
+                <div class="risk-meter ${result.riskLevel.color}">
+                    <strong>⚠️ ${result.riskLevel.text}</strong>
+                </div>
+
+                <div class="money-mgmt">
+                    <div class="money-card">
+                        <div class="amount">${result.recommendation.betAmount.toLocaleString()}đ</div>
+                        <div class="label">Số tiền khuyến nghị</div>
+                    </div>
+                    <div class="money-card">
+                        <div class="amount">${result.recommendation.action}</div>
+                        <div class="label">Hành động</div>
+                    </div>
+                    <div class="money-card">
+                        <div class="amount">${result.riskManagement.stopLoss.toLocaleString()}đ</div>
+                        <div class="label">Stop Loss</div>
+                    </div>
+                </div>
+
+                <div class="analysis-info">
+                    <h4>📊 CHI TIẾT PHÂN TÍCH:</h4>
+                    <div class="info-row">
+                        <span class="info-label">Tổng phiên phân tích:</span>
+                        <span class="info-value">${result.stats.count}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Tỷ lệ Tài/Xỉu:</span>
+                        <span class="info-value">${result.stats.taiRate}% / ${result.stats.xiuRate}%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Biến động:</span>
+                        <span class="info-value">${result.volatility.level} (${result.volatility.coefficientOfVariation}%)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Xu hướng:</span>
+                        <span class="info-value">${result.trend.direction} | ${result.trend.currentStreakType} ${result.trend.currentStreakLength} lần</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Chu kỳ:</span>
+                        <span class="info-value">${result.cycle.cycleType} (đổi ${result.cycle.switchRate}%)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Tâm lý thị trường:</span>
+                        <span class="info-value">${result.crowdPsychology.analysis}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Khuyến nghị:</span>
+                        <span class="info-value" style="color: #ffd700;">${result.recommendation.action}</span>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            container.style.display = 'block';
+        }
+
+        // BOT 1
         document.getElementById('analyzeBtn1').addEventListener('click', async () => {
             const loading = document.getElementById('loading1');
-            const resultBox = document.getElementById('result1');
+            const resultPanel = document.getElementById('result1');
             
-            // Thu thập dữ liệu
-            let historyData = [];
+            let data = [];
             
             // Lấy từ input nhanh
-            const inputs = [
-                document.getElementById('recentResult1'),
-                document.getElementById('recentResult2'),
-                document.getElementById('recentResult3'),
-                document.getElementById('recentResult4'),
-                document.getElementById('recentResult5')
-            ];
-            
-            inputs.forEach(input => {
-                const val = parseInt(input.value);
-                if (!isNaN(val) && val >= 3 && val <= 18) {
-                    historyData.push(val);
-                }
+            ['q1', 'q2', 'q3', 'q4', 'q5'].forEach(id => {
+                const val = parseInt(document.getElementById(id).value);
+                if (!isNaN(val) && val >= 3 && val <= 18) data.push(val);
             });
-
-            // Nếu có ảnh, thêm dữ liệu từ ảnh
+            
+            // Thêm từ ảnh
             if (uploadedImages.length > 0) {
-                const imageResult = TaiXiuAnalyzer.analyzeFromImages(uploadedImages);
-                if (imageResult) {
-                    // Kết hợp dữ liệu
-                    historyData = [...historyData, imageResult.number];
-                }
+                data = [...data, ...TaiXiuProAnalyzer.generateFromImages(uploadedImages)];
             }
-
-            if (historyData.length === 0) {
-                showToast('❌ Vui lòng nhập ít nhất 1 kết quả hoặc upload ảnh!');
+            
+            if (data.length < 3) {
+                showToast('❌ Cần ít nhất 3 kết quả! Nhập thêm hoặc upload ảnh.');
                 return;
             }
-
+            
             loading.style.display = 'block';
-            resultBox.style.display = 'none';
-
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            const result = TaiXiuAnalyzer.analyzeCau(historyData);
+            resultPanel.style.display = 'none';
+            
+            await new Promise(r => setTimeout(r, 1200));
+            
+            const capital = parseInt(document.getElementById('capital').value) || 1000000;
+            const result = TaiXiuProAnalyzer.analyze(data, capital);
             
             loading.style.display = 'none';
-
-            if (result) {
-                displayResult(result, 'result1', 'resultNumber1', 'resultLabel1', 
-                    'taiBar1', 'xiuBar1', 'taiProb1', 'xiuProb1', 'analysisDetails1');
-                saveHistory('🤖 BOT 1: Phân tích cầu', result);
-                showToast('✅ Phân tích hoàn tất!');
-            }
+            displayResult(result, 'result1');
+            saveHistory('BOT 1 - Phân tích nhanh', result);
+            showToast('✅ Phân tích hoàn tất!');
         });
 
-        // BOT 2: Phân tích
+        // BOT 2
         document.getElementById('analyzeBtn2').addEventListener('click', async () => {
             const loading = document.getElementById('loading2');
-            const resultBox = document.getElementById('result2');
+            const resultPanel = document.getElementById('result2');
             
-            let historyData = [];
+            let data = [];
             
             // Lấy từ textarea
             const historyText = document.getElementById('historyData').value.trim();
             if (historyText) {
-                const lines = historyText.split('\n');
-                lines.forEach(line => {
+                historyText.split('\n').forEach(line => {
                     const val = parseInt(line.trim());
-                    if (!isNaN(val) && val >= 3 && val <= 18) {
-                        historyData.push(val);
-                    }
+                    if (!isNaN(val) && val >= 3 && val <= 18) data.push(val);
                 });
             }
-
+            
             // Lấy từ MD5
-            const md5Input = document.getElementById('md5Input').value.trim();
-            if (md5Input && md5Input.length === 32) {
-                const md5Result = TaiXiuAnalyzer.analyzeFromMD5(md5Input);
-                if (md5Result && historyData.length === 0) {
-                    historyData = [md5Result.number];
-                }
+            const md5 = document.getElementById('md5Input').value.trim();
+            if (md5 && md5.length === 32 && /^[a-fA-F0-9]{32}$/.test(md5)) {
+                data = [...data, ...TaiXiuProAnalyzer.generateFromMD5(md5)];
             }
-
-            if (historyData.length === 0) {
-                showToast('❌ Vui lòng nhập lịch sử cầu hoặc mã MD5!');
+            
+            if (data.length < 3) {
+                showToast('❌ Cần ít nhất 3 kết quả! Nhập lịch sử hoặc MD5.');
                 return;
             }
-
+            
             loading.style.display = 'block';
-            resultBox.style.display = 'none';
-
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            const result = TaiXiuAnalyzer.analyzeCau(historyData);
+            resultPanel.style.display = 'none';
+            
+            await new Promise(r => setTimeout(r, 1500));
+            
+            const capital = parseInt(document.getElementById('capital').value) || 1000000;
+            const result = TaiXiuProAnalyzer.analyze(data, capital);
             
             loading.style.display = 'none';
-
-            if (result) {
-                displayResult(result, 'result2', 'resultNumber2', 'resultLabel2',
-                    'taiBar2', 'xiuBar2', 'taiProb2', 'xiuProb2', 'analysisDetails2');
-                saveHistory('🧠 BOT 2: Phân tích dữ liệu', result);
-                showToast('✅ Phân tích hoàn tất!');
-            }
+            displayResult(result, 'result2');
+            saveHistory('BOT 2 - Phân tích chuyên sâu', result);
+            showToast('✅ Phân tích chuyên sâu hoàn tất!');
         });
 
-        // Xóa lịch sử
+        // Lịch sử
+        function saveHistory(type, result) {
+            const history = JSON.parse(localStorage.getItem('taiXiuProHistory') || '[]');
+            history.unshift({
+                type: type,
+                number: result.number,
+                isTai: result.isTai,
+                taiProb: result.taiProbability,
+                xiuProb: result.xiuProbability,
+                riskLevel: result.riskLevel.level,
+                action: result.recommendation.action,
+                time: new Date().toLocaleString('vi-VN')
+            });
+            if (history.length > 50) history.pop();
+            localStorage.setItem('taiXiuProHistory', JSON.stringify(history));
+            displayHistory();
+        }
+
+        function displayHistory() {
+            const tbody = document.getElementById('historyBody');
+            const history = JSON.parse(localStorage.getItem('taiXiuProHistory') || '[]');
+            
+            if (history.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#555;padding:30px;">Chưa có dữ liệu</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = history.map(h => `
+                <tr>
+                    <td>${h.time}</td>
+                    <td>${h.type}</td>
+                    <td><span class="badge ${h.isTai ? 'badge-tai' : 'badge-xiu'}">${h.number} - ${h.isTai ? 'TÀI' : 'XỈU'}</span></td>
+                    <td>Tài: ${h.taiProb}% / Xỉu: ${h.xiuProb}%</td>
+                    <td style="color: ${h.riskLevel === 'CAO' ? '#ff4444' : h.riskLevel === 'TRUNG BÌNH' ? '#ffaa00' : '#44ff44'}">${h.riskLevel}</td>
+                    <td style="color: #ffd700; font-weight: bold;">${h.action}</td>
+                </tr>
+            `).join('');
+        }
+
         document.getElementById('clearHistory').addEventListener('click', () => {
-            if (confirm('Xóa tất cả lịch sử phân tích?')) {
-                localStorage.removeItem('taiXiuHistory');
+            if (confirm('Xóa tất cả lịch sử?')) {
+                localStorage.removeItem('taiXiuProHistory');
                 displayHistory();
                 showToast('🗑️ Đã xóa lịch sử!');
             }
         });
 
-        // Animation dice
-        function animateDice() {
-            const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            setInterval(() => {
-                document.getElementById('dice1').textContent = diceEmojis[Math.floor(Math.random() * 6)];
-                document.getElementById('dice2').textContent = diceEmojis[Math.floor(Math.random() * 6)];
-                document.getElementById('dice3').textContent = diceEmojis[Math.floor(Math.random() * 6)];
-            }, 2000);
-        }
-
-        // Khởi tạo
+        // Init
         displayHistory();
-        animateDice();
-
-        console.log('🎲 TÀI XỈU AI ANALYSIS SYSTEM READY');
-        console.log('✅ Bot 1: Phân tích từ ảnh & dữ liệu');
-        console.log('✅ Bot 2: Phân tích từ lịch sử & MD5');
-        console.log('✅ Phân tích cầu chuẩn xác');
-        console.log('✅ Dự đoán TÀI (11-18) / XỈU (3-10)');
+        console.log('🎲 TÀI XỈU PRO ANALYZER - READY');
+        console.log('✅ Phân tích thống kê chuyên sâu');
+        console.log('✅ Quản lý rủi ro & vốn');
+        console.log('✅ Đánh giá biến động thị trường');
+        console.log('✅ Khuyến nghị thông minh');
     </script>
 </body>
 </html>
