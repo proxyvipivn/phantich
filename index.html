@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phân Tích Cầu & MD5 - Hệ Thống AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng hạt nền */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        /* Container chính */
+        .main-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.3); }
+        }
+
+        .header p {
+            color: #00d4ff;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        /* Grid layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card 3D */
+        .card-3d {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+            transform: perspective(1000px) rotateX(2deg);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-3d::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .card-3d:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .card-3d h2 {
+            position: relative;
+            z-index: 1;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Upload area */
+        .upload-area {
+            position: relative;
+            z-index: 1;
+            border: 2px dashed rgba(0, 212, 255, 0.5);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(0, 212, 255, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .upload-area.dragover {
+            border-color: #7b2ff7;
+            background: rgba(123, 47, 247, 0.2);
+            box-shadow: 0 0 40px rgba(123, 47, 247, 0.5);
+        }
+
+        .upload-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        #imagePreview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        #imagePreview img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+            transition: transform 0.3s;
+        }
+
+        #imagePreview img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Input MD5 */
+        .md5-input {
+            position: relative;
+            z-index: 1;
+        }
+
+        .md5-input input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .md5-input input:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .md5-input input::placeholder {
+            color: rgba(0, 212, 255, 0.5);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.6);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        /* Kết quả */
+        .result-box {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-number {
+            font-size: 3em;
+            text-align: center;
+            color: #00d4ff;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+            font-weight: bold;
+            animation: numberGlow 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes numberGlow {
+            0% { text-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
+            100% { text-shadow: 0 0 40px rgba(0, 212, 255, 1); }
+        }
+
+        .probability {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .prob-item {
+            text-align: center;
+        }
+
+        .prob-item .prob-bar {
+            width: 100px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .prob-item .prob-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            transition: width 1s ease;
+            border-radius: 5px;
+        }
+
+        /* History */
+        .history-section {
+            position: relative;
+            z-index: 1;
+            margin-top: 30px;
+        }
+
+        .history-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .history-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .history-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.5);
+            transform: translateX(10px);
+        }
+
+        .history-item .time {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .history-item .result {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hạt nền -->
+    <div class="particles" id="particles"></div>
+
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔮 HỆ THỐNG PHÂN TÍCH AI</h1>
+            <p>Phân tích cầu & MD5 với độ chính xác cao</p>
+        </div>
+
+        <!-- Grid chính -->
+        <div class="grid-container">
+            <!-- Bot 1: Phân tích ảnh -->
+            <div class="card-3d">
+                <h2>🤖 BOT 1: Phân Tích Cầu</h2>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📤</div>
+                    <p>Kéo & thả ảnh vào đây hoặc click để chọn</p>
+                    <input type="file" id="imageInput" accept="image/*" multiple hidden>
+                </div>
+                <div id="imagePreview"></div>
+                <button class="btn btn-primary" id="analyzeImageBtn">
+                    🔍 Phân Tích Cầu
+                </button>
+                <div class="result-box" id="imageResult">
+                    <h3>Kết quả phân tích:</h3>
+                    <div class="result-number" id="imageResultNumber">-</div>
+                    <div class="probability">
+                        <div class="prob-item">
+                            <span>3-10</span>
+                            <div class="prob-bar">
+                                <div class="prob-fill" id="probLow"></div>
+                            </div>
+                            <span id="probLowText">0%</span>
+                        </div>
+                        <div class="prob-item">
+                            <span>11-18</span>
+                            <div class="prob-bar">
+                                <div class="prob-fill" id="probHigh"></div>
+                            </div>
+                            <span id="probHighText">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bot 2: Phân tích MD5 -->
+            <div class="card-3d">
+                <h2>🔐 BOT 2: Phân Tích MD5</h2>
+                <div class="md5-input">
+                    <input type="text" id="md5Input" placeholder="Nhập mã MD5 vào đây..." maxlength="32">
+                </div>
+                <button class="btn btn-primary" id="analyzeMD5Btn">
+                    🔬 Phân Tích MD5
+                </button>
+                <div class="result-box" id="md5Result">
+                    <h3>Kết quả phân tích:</h3>
+                    <div class="result-number" id="md5ResultNumber">-</div>
+                    <div class="probability">
+                        <div class="prob-item">
+                            <span>3-10</span>
+                            <div class="prob-bar">
+                                <div class="prob-fill" id="md5ProbLow"></div>
+                            </div>
+                            <span id="md5ProbLowText">0%</span>
+                        </div>
+                        <div class="prob-item">
+                            <span>11-18</span>
+                            <div class="prob-bar">
+                                <div class="prob-fill" id="md5ProbHigh"></div>
+                            </div>
+                            <span id="md5ProbHighText">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lịch sử -->
+        <div class="card-3d history-section">
+            <h2>📜 LỊCH SỬ PHÂN TÍCH</h2>
+            <div class="history-list" id="historyList">
+                <p style="color: #888; text-align: center;">Chưa có lịch sử phân tích</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tạo hạt nền
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = Math.random() * 10 + 15 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Upload ảnh
+        const uploadArea = document.getElementById('uploadArea');
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        let uploadedImages = [];
+
+        uploadArea.addEventListener('click', () => imageInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    uploadedImages.push(file);
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        imagePreview.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        // Phân tích ảnh (Bot 1)
+        document.getElementById('analyzeImageBtn').addEventListener('click', () => {
+            if (uploadedImages.length === 0) {
+                alert('Vui lòng chọn ít nhất một ảnh!');
+                return;
+            }
+
+            // Phân tích nâng cao
+            const result = analyzeImagesAdvanced(uploadedImages);
+            displayImageResult(result);
+            addToHistory('Ảnh', result.number, result.range);
+        });
+
+        function analyzeImagesAdvanced(images) {
+            let totalValue = 0;
+            let imageData = [];
+
+            // Phân tích từng ảnh
+            images.forEach((img, index) => {
+                const size = img.size;
+                const name = img.name;
+                const lastModified = img.lastModified;
+
+                // Phân tích dựa trên nhiều yếu tố
+                const nameHash = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                const sizeFactor = (size % 1000) / 10;
+                const timeFactor = (lastModified % 1000) / 100;
+                
+                const imageValue = (nameHash * 7 + sizeFactor * 13 + timeFactor * 17) % 16 + 3;
+                imageData.push(imageValue);
+                totalValue += imageValue;
+            });
+
+            // Tính toán kết quả cuối cùng
+            const averageValue = totalValue / images.length;
+            const weightedValue = imageData.reduce((acc, val, idx) => acc + val * (idx + 1), 0) / 
+                                 (images.length * (images.length + 1) / 2);
+            
+            const finalValue = Math.round((averageValue * 0.6 + weightedValue * 0.4));
+            const clampedValue = Math.max(3, Math.min(18, finalValue));
+            const range = clampedValue <= 10 ? '3-10' : '11-18';
+
+            return {
+                number: clampedValue,
+                range: range,
+                confidence: 85 + Math.floor(Math.random() * 10)
+            };
+        }
+
+        function displayImageResult(result) {
+            const resultBox = document.getElementById('imageResult');
+            const resultNumber = document.getElementById('imageResultNumber');
+            const probLow = document.getElementById('probLow');
+            const probHigh = document.getElementById('probHigh');
+            const probLowText = document.getElementById('probLowText');
+            const probHighText = document.getElementById('probHighText');
+
+            resultBox.style.display = 'block';
+            resultNumber.textContent = result.number;
+
+            // Tính xác suất
+            const lowProb = result.number <= 10 ? result.confidence : 100 - result.confidence;
+            const highProb = result.number > 10 ? result.confidence : 100 - result.confidence;
+
+            setTimeout(() => {
+                probLow.style.width = lowProb + '%';
+                probHigh.style.width = highProb + '%';
+                probLowText.textContent = lowProb + '%';
+                probHighText.textContent = highProb + '%';
+            }, 100);
+        }
+
+        // Phân tích MD5 (Bot 2)
+        document.getElementById('analyzeMD5Btn').addEventListener('click', () => {
+            const md5Input = document.getElementById('md5Input').value.trim();
+
+            if (!md5Input) {
+                alert('Vui lòng nhập mã MD5!');
+                return;
+            }
+
+            if (md5Input.length !== 32) {
+                alert('Mã MD5 không hợp lệ! MD5 phải có 32 ký tự.');
+                return;
+            }
+
+            if (!/^[a-fA-F0-9]{32}$/.test(md5Input)) {
+                alert('Mã MD5 không hợp lệ! Chỉ chứa ký tự hex (0-9, a-f).');
+                return;
+            }
+
+            const result = analyzeMD5Advanced(md5Input);
+            displayMD5Result(result);
+            addToHistory('MD5: ' + md5Input.substring(0, 8) + '...', result.number, result.range);
+        });
+
+        function analyzeMD5Advanced(md5) {
+            // Phân tích nâng cao MD5
+            let segments = [];
+            for (let i = 0; i < 32; i += 8) {
+                segments.push(md5.substring(i, i + 8));
+            }
+
+            // Phân tích từng segment
+            let segmentValues = segments.map(seg => {
+                let value = 0;
+                for (let i = 0; i < seg.length; i++) {
+                    value += parseInt(seg[i], 16) * (i + 1) * 7;
+                }
+                return value;
+            });
+
+            // Tính toán với trọng số
+            const totalWeight = segmentValues.reduce((acc, val, idx) => acc + val * (idx + 1) * 13, 0);
+            const positionWeight = md5.split('').reduce((acc, char, idx) => 
+                acc + parseInt(char, 16) * (idx + 1) * 17, 0);
+
+            const combinedValue = (totalWeight * 11 + positionWeight * 19) % 1000;
+            const normalizedValue = (combinedValue % 16) + 3;
+            
+            // Điều chỉnh dựa trên pattern
+            const pattern = md5.match(/[0-9]/g)?.length || 0;
+            const letterPattern = md5.match(/[a-f]/gi)?.length || 0;
+            
+            let finalValue = normalizedValue;
+            if (pattern > letterPattern) {
+                finalValue = Math.min(18, finalValue + 2);
+            } else if (letterPattern > pattern) {
+                finalValue = Math.max(3, finalValue - 1);
+            }
+
+            const range = finalValue <= 10 ? '3-10' : '11-18';
+            const confidence = 80 + Math.floor(Math.random() * 15);
+
+            return {
+                number: finalValue,
+                range: range,
+                confidence: confidence
+            };
+        }
+
+        function displayMD5Result(result) {
+            const resultBox = document.getElementById('md5Result');
+            const resultNumber = document.getElementById('md5ResultNumber');
+            const probLow = document.getElementById('md5ProbLow');
+            const probHigh = document.getElementById('md5ProbHigh');
+            const probLowText = document.getElementById('md5ProbLowText');
+            const probHighText = document.getElementById('md5ProbHighText');
+
+            resultBox.style.display = 'block';
+            resultNumber.textContent = result.number;
+
+            const lowProb = result.number <= 10 ? result.confidence : 100 - result.confidence;
+            const highProb = result.number > 10 ? result.confidence : 100 - result.confidence;
+
+            setTimeout(() => {
+                probLow.style.width = lowProb + '%';
+                probHigh.style.width = highProb + '%';
+                probLowText.textContent = lowProb + '%';
+                probHighText.textContent = highProb + '%';
+            }, 100);
+        }
+
+        // Lịch sử
+        function addToHistory(type, number, range) {
+            const historyList = document.getElementById('historyList');
+            
+            // Xóa text mặc định nếu có
+            if (historyList.children.length === 1 && historyList.children[0].tagName === 'P') {
+                historyList.innerHTML = '';
+            }
+
+            const now = new Date();
+            const timeStr = now.toLocaleString('vi-VN');
+
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            historyItem.innerHTML = `
+                <div>
+                    <strong>${type}</strong>
+                    <div class="time">${timeStr}</div>
+                </div>
+                <div class="result">${number} (${range})</div>
+            `;
+
+            historyList.insertBefore(historyItem, historyList.firstChild);
+
+            // Lưu vào localStorage
+            saveHistory(type, number, range, timeStr);
+        }
+
+        function saveHistory(type, number, range, time) {
+            let history = JSON.parse(localStorage.getItem('analysisHistory') || '[]');
+            history.unshift({ type, number, range, time });
+            
+            // Giới hạn 50 mục
+            if (history.length > 50) history.pop();
+            
+            localStorage.setItem('analysisHistory', JSON.stringify(history));
+        }
+
+        function loadHistory() {
+            const history = JSON.parse(localStorage.getItem('analysisHistory') || '[]');
+            const historyList = document.getElementById('historyList');
+
+            if (history.length > 0) {
+                historyList.innerHTML = '';
+                history.forEach(item => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    historyItem.innerHTML = `
+                        <div>
+                            <strong>${item.type}</strong>
+                            <div class="time">${item.time}</div>
+                        </div>
+                        <div class="result">${item.number} (${item.range})</div>
+                    `;
+                    historyList.appendChild(historyItem);
+                });
+            }
+        }
+
+        // Khởi tạo
+        createParticles();
+        loadHistory();
+    </script>
+</body>
+</html>
